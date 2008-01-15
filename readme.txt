@@ -5,7 +5,7 @@ Tags: html special characters, write post, dbx, entity codes
 Requires at least: 2.0
 Tested up to: 2.3.2
 Stable tag: trunk
-Version: 0.9.5
+Version: 0.9.6
 
 Adds a box to the Write Post screen that contains clickable special characters that insert the corresponding HTML character encoding into the post.
 

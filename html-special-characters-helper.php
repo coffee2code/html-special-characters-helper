@@ -1,7 +1,7 @@
 <?php
 /*
-Plugin Name: HTML Codes Helper
-Version: 0.9.5
+Plugin Name: HTML Special Characters Helper
+Version: 0.9.6
 Plugin URI: http://www.coffee2code.com/wp-plugins/
 Author: Scott Reilly
 Author URI: http://www.coffee2code.com
@@ -14,16 +14,18 @@ Compatible with WordPress 2.0+, 2.1+, 2.2+, and 2.3+.
 
 INSTALLATION:
 
-1. Download the file http://www.coffee2code.com/wp-plugins/html-codes-helper.zip and unzip it into your 
+1. Download the file http://www.coffee2code.com/wp-plugins/html-special-characters-helper.zip and unzip it into your 
 /wp-content/plugins/ directory.
 2. Activate the plugin through the 'Plugins' admin menu in WordPress
-3. A sidebar box entitled "HTML Codes" will now be present in your write post form, which you can make use of.  Simply click
+3. A sidebar box entitled "HTML Special Characters" will now be present in your write post form, which you can make use of.  Simply click
 on any character that you would like inserted into your post.
 
 TODO:
-	* Add support of accented characters
+
+	* Add support for accented characters
 	
 REFERENCES:
+
 	* http://www.w3schools.com/tags/ref_entities.asp
 	* http://tlt.psu.edu/suggestions/international/web/codehtml.html
 	* http://wdvl.internet.com/Authoring/HTML/Entities/
@@ -45,28 +47,28 @@ LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRA
 IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
-if (!class_exists('HTMLCodesHelper')) :
+if (!class_exists('HTMLSpecialCharactersHelper')) :
 
-class HTMLCodesHelper {
-	var $folder = 'wp-content/plugins/html-codes-helper/';
+class HTMLSpecialCharactersHelper {
+	var $folder = 'wp-content/plugins/html-special-characters-helper/';
     var $fullfolderurl;
 	var $create_dbx_box = true;		// This is for the collapsible admin sidebar box
 	var $create_editor_button = true;	// This is for the button above the post content input textbox
 
-	function HTMLCodesHelper() {
+	function HTMLSpecialCharactersHelper() {
 		$this->fullfolderurl = get_bloginfo('wpurl') . '/' . $this->folder;
 		add_action('edit_page_form', array(&$this, 'insert_js'));
 		add_action('edit_form_advanced', array(&$this, 'insert_js'));
-		add_action('htmlcodes_head', array(&$this, 'insert_js'));
+		add_action('html_special_characters_head', array(&$this, 'insert_js'));
 		if ($this->create_editor_button)
 			add_action('init', array(&$this, 'addbuttons'));
 		if ($this->create_dbx_box) {
-			add_action('dbx_post_sidebar', array(&$this, 'show_html_codes'));
-			add_action('dbx_page_sidebar', array(&$this, 'show_html_codes'));
+			add_action('dbx_post_sidebar', array(&$this, 'show_html_special_characters'));
+			add_action('dbx_page_sidebar', array(&$this, 'show_html_special_characters'));
 		}
 	}
 
-	function html_codes($category = null) {
+	function html_special_characters($category = null) {
 		$codes = array(
 			'common' => array(
 				'&copy;' => 'copyright sign',
@@ -183,20 +185,20 @@ class HTMLCodesHelper {
 		);
 		if ($category)
 			$codes = $codes[$category];
-		return apply_filters('c2c_html_codes', $codes);
+		return apply_filters('c2c_html_special_characters', $codes);
 	}
 
-	function show_html_codes($for = 'dbx') {
+	function show_html_special_characters($for = 'dbx') {
 		if ($for == '') $for = 'dbx';
-		$codes = $this->html_codes();
+		$codes = $this->html_special_characters();
 		$innards = '';
-		$moreinnards = "<dl id='morehtmlcodes_$for' style='display:none;'>";
+		$moreinnards = "<dl id='morehtmlspecialcharacters_$for' style='display:none;'>";
 		$i = 0;
 		foreach (array_keys($codes) as $cat) {
 			if ($cat != 'common') $moreinnards .= "<dt style='font-size:xx-small;'>$cat:</dt><dd style='margin-left:6px;'>";
 			foreach ($codes[$cat] as $code => $description) {
 					$ecode = htmlspecialchars($code);
-					$item = "<acronym onclick=\"insert_htmlcode('$ecode');\" title='$ecode $description'> $code</acronym>";
+					$item = "<acronym onclick=\"insert_htmlspecialcharacter('$ecode');\" title='$ecode $description'> $code</acronym>";
 					if ('common' == $cat) $innards .= $item;
 					else $moreinnards .= $item;
 			}
@@ -204,12 +206,12 @@ class HTMLCodesHelper {
 		}
 		$moreinnards .= '</dl>';
 		echo <<<HTML
-		<fieldset id="htmlcodehelper_$for" class="dbx-box htmlcode">
+		<fieldset id="htmlspecialcharacterhelper_$for" class="dbx-box htmlspecialcharacter">
 			<h3 class="dbx-handle">HTML Special Characters</h3>
 			<div class="dbx-content">
 				<span id='commoncodes_$for'>$innards</span>
-				<a href='#' class="htmlcode_helplink" onclick="Element.toggle('htmlhelperhelp_$for'); return false;">Help?</a>
-				<a href='#' class="htmlcode_morelink" onclick="Element.toggle('commoncodes_$for'); Element.toggle('morehtmlcodes_$for'); return false;">Toggle more</a>
+				<a href='#' class="htmlspecialcharacter_helplink" onclick="Element.toggle('htmlhelperhelp_$for'); return false;">Help?</a>
+				<a href='#' class="htmlspecialcharacter_morelink" onclick="Element.toggle('commoncodes_$for'); Element.toggle('morehtmlspecialcharacters_$for'); return false;">Toggle more</a>
 				$moreinnards
 				<p id="htmlhelperhelp_$for" style='font-size:x-small; display:none;'>Click to insert character into post.  Mouse-over character for more info. Some characters may not display in older browsers.</p>
 			</div>
@@ -230,38 +232,38 @@ HTML;
 	}
 	
 	function mce_plugins($plugins) {
-            array_push($plugins, '-htmlcodeshelper');
+            array_push($plugins, '-htmlspecialcharactershelper');
             return $plugins;
     }
     function mce_buttons($buttons) {
-            array_push($buttons, 'separator', 'htmlcodeshelper');
+            array_push($buttons, 'separator', 'htmlspecialcharactershelper');
             return $buttons;
     }
     function tinymce_before_init() {
-            echo 'tinyMCE.loadPlugin("htmlcodeshelper", "' . $this->fullfolderurl . "tinymce/\");\n";
+            echo 'tinyMCE.loadPlugin("htmlspecialcharactershelper", "' . $this->fullfolderurl . "tinymce/\");\n";
     }
 
 	function insert_js() {
 		echo <<<HTML
 		<style type="text/css">
-			.htmlcode acronym {
+			.htmlspecialcharacter acronym {
 				margin:0.1em 0.5em 0.1em 0;
 			}
-			.htmlcode a {
+			.htmlspecialcharacter a {
 				font-size:xx-small;
 			}
-			#htmlcodehelper_rte {
+			#htmlspecialcharacterhelper_rte {
 				border:0;
 			}
-			#htmlcodehelper_rte acronym {
+			#htmlspecialcharacterhelper_rte acronym {
 				font-size:1.2em;
 			}
-			#htmlcodehelper_rte h3.dbx-handle, #htmlcodehelper_rte a.htmlcode_helplink {
+			#htmlspecialcharacterhelper_rte h3.dbx-handle, #htmlspecialcharacterhelper_rte a.htmlspecialcharacter_helplink {
 				display:none;
 			}
 		</style>
 		<script type="text/javascript">
-			function insert_htmlcode(code) {
+			function insert_htmlspecialcharacter(character) {
 				var inst;
 				if ((typeof tinyMCE != "undefined") && (inst = tinyMCE.selectedInstance)) {
 					try {
@@ -272,24 +274,24 @@ HTML;
 						if (inst.selectionBookmark)
 							inst.selection.moveToBookmark(inst.selectionBookmark);
 					}
-					tinyMCE.execCommand('mceInsertContent', false, code);
+					tinyMCE.execCommand('mceInsertContent', false, character);
 				} else {
-					edInsertContent(edCanvas, code);
+					edInsertContent(edCanvas, character);
 				}
 				return false;
 			}
-			function htmlcodeshelper_buttonscript() {
+			function htmlspecialcharactershelper_buttonscript() {
 				alert("I am here!");
 			}
 		</script>
 HTML;
 	}
-} // end HTMLCodesHelper
+} // end HTMLSpecialCharactersHelper
 
 endif; // end if !class_exists()
-if (class_exists('HTMLCodesHelper')) :
+if (class_exists('HTMLSpecialCharactersHelper')) :
 
-	$HTMLCodesHelper = new HTMLCodesHelper();
+	$HTMLSpecialCharactersHelper = new HTMLSpecialCharactersHelper();
 
 endif; // end if class_exists()
 

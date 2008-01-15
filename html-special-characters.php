@@ -1,6 +1,6 @@
 <?php
 include_once('../../../wp-blog-header.php');
-if (!$HTMLCodesHelper) exit();
+if (!$HTMLSpecialCharactersHelper) exit();
 ?>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -9,7 +9,7 @@ if (!$HTMLCodesHelper) exit();
 	<script language="javascript" type="text/javascript" src="../../../wp-includes/js/tinymce/tiny_mce_popup.js"></script>
 	<script language="javascript" type="text/javascript" src="../../../wp-includes/js/tinymce/utils/mctabs.js"></script>
 	<script language="javascript" type="text/javascript" src="../../../wp-includes/js/prototype.js"></script>
-	<?php do_action('htmlcodes_head'); ?>
+	<?php do_action('htmlspecialcharacters_head'); ?>
 	<base target="_self" />
 </head>
 <body id="image" onload="document.body.style.display='';" style="display: none">
@@ -29,7 +29,7 @@ if (!$HTMLCodesHelper) exit();
 
         <tr>
 		  <td>
-			<?php $HTMLCodesHelper->show_html_codes('rte'); ?>
+			<?php $HTMLSpecialCharactersHelper->show_html_specialcharacters('rte'); ?>
 		  </td>
 		</tr>
 	 </table>
