@@ -3,15 +3,15 @@ Contributors: coffee2code
 Donate link: http://coffee2code.com
 Tags: html special characters, write post, dbx, entity codes
 Requires at least: 2.0
-Tested up to: 2.3.2
+Tested up to: 2.5
 Stable tag: trunk
-Version: 0.9.6
+Version: 1.0
 
-Adds a box to the Write Post screen that contains clickable special characters that insert the corresponding HTML character encoding into the post.
+Adds a tool to the Write Post page for inserting HTML encodings of special characters into the post.
 
 == Description ==
 
-Adds a box to the Write Post screen that contains clickable special characters that insert the corresponding HTML character encoding into the post.
+Adds a tool to the Write Post page for inserting HTML encodings of special characters into the post.
 
 The sidebar box is labeled "HTML Special Characters" and is present in the admin Write Post and Write Page pages. Clicking on any special character in the box causes its character encoding to be inserted into the post body text field at the current cursor location (or at the end of the post if the cursor isn't located in the post body field).  Hovering over any of the special characters causes a hover text box to appear that shows the HTML entity encoding for the character as well as the name of the character.
 

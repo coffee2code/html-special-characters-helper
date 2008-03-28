@@ -1,13 +1,13 @@
 <?php
 /*
 Plugin Name: HTML Special Characters Helper
-Version: 0.9.6
-Plugin URI: http://www.coffee2code.com/wp-plugins/
+Version: 1.0
+Plugin URI: http://coffee2code.com/wp-plugins/html-special-characters-helper
 Author: Scott Reilly
-Author URI: http://www.coffee2code.com
-Description: Adds a box to the Write Post screen that contains clickable special characters that insert the corresponding HTML character encoding into the post.
+Author URI: http://coffee2code.com
+Description: Adds a tool to the Write Post page for inserting HTML encodings of special characters into the post.
 
-Compatible with WordPress 2.0+, 2.1+, 2.2+, and 2.3+.
+Compatible with WordPress 2.0+, 2.1+, 2.2+, 2.3+, and 2.5.
 
 =>> Read the accompanying readme.txt file for more information.  Also, visit the plugin's homepage
 =>> for more information and the latest updates
@@ -17,8 +17,8 @@ INSTALLATION:
 1. Download the file http://www.coffee2code.com/wp-plugins/html-special-characters-helper.zip and unzip it into your 
 /wp-content/plugins/ directory.
 2. Activate the plugin through the 'Plugins' admin menu in WordPress
-3. A sidebar box entitled "HTML Special Characters" will now be present in your write post form, which you can make use of.  Simply click
-on any character that you would like inserted into your post.
+3. A sidebar box entitled "HTML Special Characters" will now be present in your write post and write page forms.
+Simply click on any character that you would like inserted into your post.
 
 TODO:
 
@@ -50,6 +50,7 @@ IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 if (!class_exists('HTMLSpecialCharactersHelper')) :
 
 class HTMLSpecialCharactersHelper {
+	var $title = 'HTML Special Characters';
 	var $folder = 'wp-content/plugins/html-special-characters-helper/';
     var $fullfolderurl;
 	var $create_dbx_box = true;		// This is for the collapsible admin sidebar box
@@ -63,8 +64,17 @@ class HTMLSpecialCharactersHelper {
 		if ($this->create_editor_button)
 			add_action('init', array(&$this, 'addbuttons'));
 		if ($this->create_dbx_box) {
-			add_action('dbx_post_sidebar', array(&$this, 'show_html_special_characters'));
+			add_action('admin_menu', array(&$this,'admin_init')); // Use admin_init action when dropping pre-2.5 support
+		}
+	}
+
+	function admin_init() {
+		if (function_exists('add_meta_box')) {
+			add_meta_box('htmlspecialchars', $this->title, array(&$this, 'add_meta_box'), 'page');
+			add_meta_box('htmlspecialchars', $this->title, array(&$this, 'add_meta_box'), 'post');
+		} else {
 			add_action('dbx_page_sidebar', array(&$this, 'show_html_special_characters'));
+			add_action('dbx_post_sidebar', array(&$this, 'show_html_special_characters'));
 		}
 	}
 
@@ -188,7 +198,14 @@ class HTMLSpecialCharactersHelper {
 		return apply_filters('c2c_html_special_characters', $codes);
 	}
 
-	function show_html_special_characters($for = 'dbx') {
+	// Need this function instead of having the action directly call show_html_special_characters_content() because
+	//	the action sends over multiple arguments that we don't want.  Since show_html_special_characters() also calls
+	//	show_html_special_characters_content() we can't just have it ignore arguments
+	function add_meta_box() {
+		$this->show_html_special_characters_content();
+	}
+
+	function show_html_special_characters_content($for = 'dbx', $echo = true) {
 		if ($for == '') $for = 'dbx';
 		$codes = $this->html_special_characters();
 		$innards = '';
@@ -205,15 +222,26 @@ class HTMLSpecialCharactersHelper {
 			if ($cat != 'common') $moreinnards .= '</dd>';
 		}
 		$moreinnards .= '</dl>';
+		$innards = <<<HTML
+		<div class="htmlspecialcharacter">
+		<span id='commoncodes_$for'>$innards</span>
+		<a href='#' class="htmlspecialcharacter_helplink" onclick="jQuery('#htmlhelperhelp_$for').toggle(); return false;">Help?</a>
+		<a href='#' class="htmlspecialcharacter_morelink" onclick="jQuery('#commoncodes_$for, #morehtmlspecialcharacters_$for').toggle(); return false;">Toggle more</a>
+		$moreinnards
+		<p id="htmlhelperhelp_$for" style='font-size:x-small; display:none;'>Click to insert character into post.  Mouse-over character for more info. Some characters may not display in older browsers.</p>
+		</div>
+HTML;
+		if ($echo) echo $innards;
+		return $innards;
+	}
+
+	function show_html_special_characters($for = 'dbx') {
+		$innards = $this->show_html_special_characters_content($for, false);
 		echo <<<HTML
-		<fieldset id="htmlspecialcharacterhelper_$for" class="dbx-box htmlspecialcharacter">
-			<h3 class="dbx-handle">HTML Special Characters</h3>
+		<fieldset id="htmlspecialcharacterhelper_$for" class="dbx-box">
+			<h3 class="dbx-handle">{$this->title}</h3>
 			<div class="dbx-content">
-				<span id='commoncodes_$for'>$innards</span>
-				<a href='#' class="htmlspecialcharacter_helplink" onclick="Element.toggle('htmlhelperhelp_$for'); return false;">Help?</a>
-				<a href='#' class="htmlspecialcharacter_morelink" onclick="Element.toggle('commoncodes_$for'); Element.toggle('morehtmlspecialcharacters_$for'); return false;">Toggle more</a>
-				$moreinnards
-				<p id="htmlhelperhelp_$for" style='font-size:x-small; display:none;'>Click to insert character into post.  Mouse-over character for more info. Some characters may not display in older browsers.</p>
+				$innards
 			</div>
 		</fieldset>
 HTML;
@@ -248,6 +276,7 @@ HTML;
 		<style type="text/css">
 			.htmlspecialcharacter acronym {
 				margin:0.1em 0.5em 0.1em 0;
+				cursor:pointer;
 			}
 			.htmlspecialcharacter a {
 				font-size:xx-small;
