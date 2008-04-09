@@ -13,7 +13,7 @@ Adds a tool to the Write Post page for inserting HTML encodings of special chara
 
 Adds a tool to the Write Post page for inserting HTML encodings of special characters into the post.
 
-The sidebar box is labeled "HTML Special Characters" and is present in the admin Write Post and Write Page pages. Clicking on any special character in the box causes its character encoding to be inserted into the post body text field at the current cursor location (or at the end of the post if the cursor isn't located in the post body field).  Hovering over any of the special characters causes a hover text box to appear that shows the HTML entity encoding for the character as well as the name of the character.
+The helper box is labeled "HTML Special Characters" and is present in the admin Write Post and Write Page pages. Clicking on any special character in the box causes its character encoding to be inserted into the post body text field at the current cursor location (or at the end of the post if the cursor isn't located in the post body field).  Hovering over any of the special characters causes a hover text box to appear that shows the HTML entity encoding for the character as well as the name of the character.
 
 The helper is available for both the non-visual editor and the visual editor modes.
 
