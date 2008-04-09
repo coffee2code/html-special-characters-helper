@@ -23,7 +23,7 @@ In the visual editor mode, an additional interface for the HTML special characte
 
 1. Unzip `html-special-characters-helper.zip` inside the `/wp-content/plugins/` directory
 1. Activate the plugin through the 'Plugins' admin menu in WordPress
-1. Use the new "HTML Special Characters" sidebar box to insert HTML encodings of special characters into the cursor location of the post body of the post you are writing
+1. A helper box entitled "HTML Special Characters" will now be present in your write post and write page forms.  Simply click on any character that you would like inserted into your post.  In versions of WordPress older than 2.5 this box appears in the sidebar and can be dragged to a different position; in WordPress 2.5 it appears below the post entry box and cannot be moved.
 
 == Frequently Asked Questions ==
 
@@ -33,7 +33,7 @@ You can't.  The plugin only inserts the HTML character encodings into the post b
 
 = I've activated the plugin and don't see the "HTML Special Characters" helper box when I go to write a post; where is it? =
 
-Initially the sidebar box is added to the bottom of your admin sidebar.  You may want to drag it up the sidebar into a higher position closer to the post body field.
+In WP 2.3 the helper box is initially added to the bottom of your admin sidebar.  You may want to drag it up the sidebar into a higher position closer to the post entry field.  In WP 2.5 the box is located below the post entry field and, unfortunately, is not currently drag-n-droppable.
 
 == Screenshots ==
 

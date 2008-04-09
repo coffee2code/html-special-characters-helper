@@ -17,8 +17,10 @@ INSTALLATION:
 1. Download the file http://www.coffee2code.com/wp-plugins/html-special-characters-helper.zip and unzip it into your 
 /wp-content/plugins/ directory.
 2. Activate the plugin through the 'Plugins' admin menu in WordPress
-3. A sidebar box entitled "HTML Special Characters" will now be present in your write post and write page forms.
-Simply click on any character that you would like inserted into your post.
+3. A helper box entitled "HTML Special Characters" will now be present in your write post and write page forms.
+Simply click on any character that you would like inserted into your post.  In versions of WordPress older than 
+2.5 this box appears in the sidebar and can be dragged to a different position; in WordPress 2.5 it appears below
+the post entry box and cannot be moved.
 
 TODO:
 
