@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: HTML Special Characters Helper
-Version: 1.0
+Version: 1.0.1
 Plugin URI: http://coffee2code.com/wp-plugins/html-special-characters-helper
 Author: Scott Reilly
 Author URI: http://coffee2code.com
