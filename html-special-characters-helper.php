@@ -1,19 +1,19 @@
 <?php
 /*
 Plugin Name: HTML Special Characters Helper
-Version: 1.0.1
+Version: 1.5
 Plugin URI: http://coffee2code.com/wp-plugins/html-special-characters-helper
 Author: Scott Reilly
 Author URI: http://coffee2code.com
-Description: Adds a tool to the Write Post page for inserting HTML encodings of special characters into the post.
+Description: Admin widget on the Write Post page for inserting HTML encodings of special characters into the post.
 
-The helper box is labeled "HTML Special Characters" and is present in the admin Write Post and Write Page 
-pages. Clicking on any special character in the box causes its character encoding to be inserted into the
+The admin widget is labeled "HTML Special Characters" and is present in the admin Write Post and Write Page 
+pages. Clicking on any special character in the widget causes its character encoding to be inserted into the
 post body text field at the current cursor location (or at the end of the post if the cursor isn't located
 in the post body field).  Hovering over any of the special characters causes a hover text box to appear
 that shows the HTML entity encoding for the character as well as the name of the character.
 
-The helper is available for both the non-visual editor and the visual editor modes.
+The widget is available for both the non-visual editor and the visual editor modes.
 
 In the visual editor mode, an additional interface for the HTML special characters is accessible via the
 editor's toolbar: a new button with an ampersand, &, on it.  Pressing that button displays a popup that
@@ -23,20 +23,18 @@ accessible via the advanced toolbar, which depending on your usage, may make thi
 you.  In truth, the plugin is intended more for the non-visual mode as that is the mode I (the plugin
 author) use.
 
-Compatible with WordPress 2.0+, 2.1+, 2.2+, 2.3+, and 2.5.
+Compatible with WordPress 2.6+, 2.7+, 2.8+.
 
 =>> Read the accompanying readme.txt file for more information.  Also, visit the plugin's homepage
 =>> for more information and the latest updates
 
 INSTALLATION:
 
-1. Download the file http://www.coffee2code.com/wp-plugins/html-special-characters-helper.zip and unzip it into your 
+1. Download the file http://coffee2code.com/wp-plugins/html-special-characters-helper.zip and unzip it into your 
 /wp-content/plugins/ directory.
 2. Activate the plugin through the 'Plugins' admin menu in WordPress
-3. A helper box entitled "HTML Special Characters" will now be present in your write post and write page forms.
-Simply click on any character that you would like inserted into your post.  In versions of WordPress older than 
-2.5 this box appears in the sidebar and can be dragged to a different position; in WordPress 2.5 it appears below
-the post entry box and cannot be moved.
+3. An admin widget entitled "HTML Special Characters" will now be present in your write post and write page forms.
+Simply click on any character that you would like inserted into your post.
 
 TODO:
 
@@ -50,7 +48,7 @@ REFERENCES:
 */
 
 /*
-Copyright (c) 2007-2008 by Scott Reilly (aka coffee2code)
+Copyright (c) 2007-2009 by Scott Reilly (aka coffee2code)
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation 
 files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, 
@@ -69,34 +67,31 @@ if (!class_exists('HTMLSpecialCharactersHelper')) :
 
 class HTMLSpecialCharactersHelper {
 	var $title = 'HTML Special Characters';
-	var $folder = 'wp-content/plugins/html-special-characters-helper/';
+	var $folder = '';
     var $fullfolderurl;
-	var $create_dbx_box = true;		// This is for the collapsible admin sidebar box
+	var $create_dbx_box = true;		// This is for the collapsible admin sidebar widget
 	var $create_editor_button = true;	// This is for the button above the post content input textbox
 
 	function HTMLSpecialCharactersHelper() {
+		global $pagenow;
+		$this->folder = plugins_url() . '/html-special-characters-helper/';
 		$this->fullfolderurl = get_bloginfo('wpurl') . '/' . $this->folder;
-		add_action('edit_page_form', array(&$this, 'insert_js'));
-		add_action('edit_form_advanced', array(&$this, 'insert_js'));
+		if ( in_array($pagenow, array('page.php', 'page-new.php', 'post.php', 'post-new.php')) )
+			add_action('admin_footer', array(&$this, 'insert_js'));
 		add_action('html_special_characters_head', array(&$this, 'insert_js'));
-		if ($this->create_editor_button)
+		if ( $this->create_editor_button )
 			add_action('init', array(&$this, 'addbuttons'));
-		if ($this->create_dbx_box) {
-			add_action('admin_menu', array(&$this,'admin_init')); // Use admin_init action when dropping pre-2.5 support
+		if ( $this->create_dbx_box ) {
+			add_action('admin_init', array(&$this,'admin_init'));
 		}
 	}
 
 	function admin_init() {
-		if (function_exists('add_meta_box')) {
-			add_meta_box('htmlspecialchars', $this->title, array(&$this, 'add_meta_box'), 'page');
-			add_meta_box('htmlspecialchars', $this->title, array(&$this, 'add_meta_box'), 'post');
-		} else {
-			add_action('dbx_page_sidebar', array(&$this, 'show_html_special_characters'));
-			add_action('dbx_post_sidebar', array(&$this, 'show_html_special_characters'));
-		}
+		add_meta_box('htmlspecialchars', $this->title, array(&$this, 'add_meta_box'), 'page', 'side');
+		add_meta_box('htmlspecialchars', $this->title, array(&$this, 'add_meta_box'), 'post', 'side');
 	}
 
-	function html_special_characters($category = null) {
+	function html_special_characters( $category = null ) {
 		$codes = array(
 			'common' => array(
 				'&copy;' => 'copyright sign',
@@ -211,7 +206,7 @@ class HTMLSpecialCharactersHelper {
 				'&darr;' => 'down arrow'
 			)
 		);
-		if ($category)
+		if ( $category )
 			$codes = $codes[$category];
 		return apply_filters('c2c_html_special_characters', $codes);
 	}
@@ -223,21 +218,21 @@ class HTMLSpecialCharactersHelper {
 		$this->show_html_special_characters_content();
 	}
 
-	function show_html_special_characters_content($for = 'dbx', $echo = true) {
-		if ($for == '') $for = 'dbx';
+	function show_html_special_characters_content( $for = 'dbx', $echo = true ) {
+		if ( empty($for) ) $for = 'dbx';
 		$codes = $this->html_special_characters();
 		$innards = '';
 		$moreinnards = "<dl id='morehtmlspecialcharacters_$for' style='display:none;'>";
 		$i = 0;
-		foreach (array_keys($codes) as $cat) {
-			if ($cat != 'common') $moreinnards .= "<dt style='font-size:xx-small;'>$cat:</dt><dd style='margin-left:6px;'>";
-			foreach ($codes[$cat] as $code => $description) {
+		foreach ( array_keys($codes) as $cat ) {
+			if ( 'common' != $cat ) $moreinnards .= "<dt style='font-size:xx-small;'>$cat:</dt><dd style='margin-left:6px;'>";
+			foreach ( $codes[$cat] as $code => $description ) {
 					$ecode = htmlspecialchars($code);
 					$item = "<acronym onclick=\"insert_htmlspecialcharacter('$ecode');\" title='$ecode $description'> $code</acronym>";
-					if ('common' == $cat) $innards .= $item;
+					if ( 'common' == $cat ) $innards .= $item;
 					else $moreinnards .= $item;
 			}
-			if ($cat != 'common') $moreinnards .= '</dd>';
+			if ( 'common' != $cat ) $moreinnards .= '</dd>';
 		}
 		$moreinnards .= '</dl>';
 		$innards = <<<HTML
@@ -249,11 +244,11 @@ class HTMLSpecialCharactersHelper {
 		<p id="htmlhelperhelp_$for" style='font-size:x-small; display:none;'>Click to insert character into post.  Mouse-over character for more info. Some characters may not display in older browsers.</p>
 		</div>
 HTML;
-		if ($echo) echo $innards;
+		if ( $echo ) echo $innards;
 		return $innards;
 	}
 
-	function show_html_special_characters($for = 'dbx') {
+	function show_html_special_characters( $for = 'dbx' ) {
 		$innards = $this->show_html_special_characters_content($for, false);
 		echo <<<HTML
 		<fieldset id="htmlspecialcharacterhelper_$for" class="dbx-box">
@@ -277,11 +272,11 @@ HTML;
 		}
 	}
 	
-	function mce_plugins($plugins) {
+	function mce_plugins( $plugins ) {
             array_push($plugins, '-htmlspecialcharactershelper');
             return $plugins;
     }
-    function mce_buttons($buttons) {
+    function mce_buttons( $buttons ) {
             array_push($buttons, 'separator', 'htmlspecialcharactershelper');
             return $buttons;
     }
@@ -327,19 +322,14 @@ HTML;
 				}
 				return false;
 			}
-			function htmlspecialcharactershelper_buttonscript() {
-				alert("I am here!");
-			}
 		</script>
 HTML;
 	}
 } // end HTMLSpecialCharactersHelper
 
 endif; // end if !class_exists()
-if (class_exists('HTMLSpecialCharactersHelper')) :
 
+if ( is_admin() && class_exists('HTMLSpecialCharactersHelper') )
 	$HTMLSpecialCharactersHelper = new HTMLSpecialCharactersHelper();
-
-endif; // end if class_exists()
 
 ?>
