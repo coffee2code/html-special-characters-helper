@@ -13,15 +13,10 @@ post body text field at the current cursor location (or at the end of the post i
 in the post body field).  Hovering over any of the special characters causes a hover text box to appear
 that shows the HTML entity encoding for the character as well as the name of the character.
 
-The widget is available for both the non-visual editor and the visual editor modes.
-
-In the visual editor mode, an additional interface for the HTML special characters is accessible via the
-editor's toolbar: a new button with an ampersand, &, on it.  Pressing that button displays a popup that
-behaves just like the sidebar box.  Note that in the visual editor mode that the special character itself
-is added to the post body. Also note that the visual editor has its own special characters popup helper
-accessible via the advanced toolbar, which depending on your usage, may make this plugin unnecessary for
-you.  In truth, the plugin is intended more for the non-visual mode as that is the mode I (the plugin
-author) use.
+Note that when used in the visual editor mode the special character itself is added to the post body. Also note
+that the visual editor has its own special characters popup helper accessible via the advanced toolbar, which
+depending on your usage, may make this plugin unnecessary for you.  In truth, the plugin is intended more for
+the non-visual (aka HTML) mode as that is the mode I (the plugin author) use.
 
 Compatible with WordPress 2.6+, 2.7+, 2.8+.
 
@@ -67,23 +62,13 @@ if (!class_exists('HTMLSpecialCharactersHelper')) :
 
 class HTMLSpecialCharactersHelper {
 	var $title = 'HTML Special Characters';
-	var $folder = '';
-    var $fullfolderurl;
-	var $create_dbx_box = true;		// This is for the collapsible admin sidebar widget
-	var $create_editor_button = true;	// This is for the button above the post content input textbox
 
 	function HTMLSpecialCharactersHelper() {
 		global $pagenow;
-		$this->folder = plugins_url() . '/html-special-characters-helper/';
-		$this->fullfolderurl = get_bloginfo('wpurl') . '/' . $this->folder;
 		if ( in_array($pagenow, array('page.php', 'page-new.php', 'post.php', 'post-new.php')) )
 			add_action('admin_footer', array(&$this, 'insert_js'));
 		add_action('html_special_characters_head', array(&$this, 'insert_js'));
-		if ( $this->create_editor_button )
-			add_action('init', array(&$this, 'addbuttons'));
-		if ( $this->create_dbx_box ) {
-			add_action('admin_init', array(&$this,'admin_init'));
-		}
+		add_action('admin_init', array(&$this,'admin_init'));
 	}
 
 	function admin_init() {
@@ -149,6 +134,7 @@ class HTMLSpecialCharactersHelper {
 				'&copy;' => 'copyright symbol',
 				'&#8482;' => 'trademark symbol',
 				'&para;' =>	'paragraph symbol',
+				'&szlig;' => 'sharp s / ess-zed',
 				'&bull;' => 'bullet/big dot',
 				'&middot;' => 'middle dot',
 				'&sect;' =>	'subsection symbol',
@@ -163,47 +149,127 @@ class HTMLSpecialCharactersHelper {
 				'&pound;' => 'British Pound',
 				'&yen;' => 'Japanese Yen',
 				'&euro;' => 'Euro symbol',
-				'&curren;' => 'generic currency symbol',
-				'&fnof;' => 'Dutch Florin symbol'
+				'&fnof;' => 'Dutch Florin symbol',
+				'&curren;' => 'generic currency symbol'
 			),
 			'math' => array(
+				'&fnof;' => 'function',
 				'&gt;' => 'greater than',
 				'&lt;' => 'less than',
-				'&divide;' => 'division symbol',
-				'&times;' => 'multiplication symbol',
+				'&ge;' => 'greater than or equal to',
+				'&le;' => 'less than or equal to',
+				'&ne;' => 'not equal to',
+				'&asymp;' => 'approximately',
+				'&equiv;' => 'identical to',
+				'&minus;' => 'minus sign',
+				'&divide;' => 'division sign',
+				'&times;' => 'multiplication sign',
 				'&deg;' => 'degree symbol',
 				'&not;' => 'not symbol',
 				'&plusmn;' => 'plus/minus symbol',
 				'&micro;' => 'Micro',
+				'&forall;' => 'for all',
+				'&exist;' => 'there exists',
 				'&there4;' => 'therefore triangle',
-				'&ne;' => 'not equals',
-				'&ge;' => 'greater than or equal to',
-				'&le;' => 'less than or equal to',
-				'&asymp;' => 'approximately',
 				'&radic;' => 'square root radical',
 				'&infin;' => 'infinity',
 				'&int;' => 'integral sign',
-				'&part;' => 'partial derivative',
+				'&part;' => 'partial differential',
+				'&sdot;' => 'dot operator',
 				'&prime;' => 'single prime',
 				'&Prime;' => 'double prime',
-				'&sum;' => 'Sigma sum sign',
-				'&prod;' => 'Pi product sign',
+				'&sum;' => 'n-ary summation',
+				'&prod;' => 'n-ary product',
 				'&permil;' => 'per mil (1/1000th)',
-				'&equiv;' => 'equivalent to (three lines)',
+				'&perp;' => 'orthogonal to / perpendicular',
+				'&ang;' => 'angle',
+				'&and;' => 'logical and',
+				'&or;' => 'logical or',
+				'&cap;' => 'intersection',
+				'&cup;' => 'union',
+				'&empty;' => 'empty set',
+				'&nabla;' => 'nabla, backward difference',
+				'&frasl;' => 'fraction slash',
 				'&sup1;' => 'superscript one',
 				'&sup2;' => 'superscript two - squared',
 				'&sup3;' => 'superscript three - cubed',
 				'&frac14;' => 'fraction one quarter (1/4)',
 				'&frac12;' => 'fraction one half (1/2)',
-				'&frac34;' => 'fraction three quarters (3/4)'
+				'&frac34;' => 'fraction three quarters (3/4)',
+				'&ordf;' => 'feminine ordinal indicator',
+				'&ordm;' => 'masculine ordinal indicator'
 			),
 			'symbols' => array(
+				'&cedil;' => 'cedilla',
 				'&dagger;' => 'dagger',
 				'&Dagger;' => 'double dagger',
 				'&larr;' => 'left arrow',
 				'&uarr;' => 'up arrow',
 				'&rarr;' => 'right arrow',
-				'&darr;' => 'down arrow'
+				'&darr;' => 'down arrow',
+				'&harr;' => 'left-right arrow',
+				'&crarr;' => 'carriage return',
+				'&lArr;' => 'left double arrow',
+				'&uArr;' => 'up double arrow',
+				'&rArr;' => 'right double arrow',
+				'&dArr;' => 'down double arrow',
+				'&hArr;' => 'left-right double arrow',
+				'&loz;' => 'lozenge',
+				'&clubs;' => 'clubs',
+				'&hearts;' => 'hearts',
+				'&diams;' => 'diamonds',
+				'&spades;' => 'spades'
+			),
+			'greek' => array(
+				'&Alpha;' => 'Greek capital letter alpha',
+				'&Beta;' => 'Greek capital letter beta',
+				'&Gamma;' => 'Greek capital letter gamma',
+				'&Delta;' => 'Greek capital letter delta',
+				'&Epsilon;' => 'Greek capital letter epsilon',
+				'&Zeta;' => 'Greek capital letter zeta',
+				'&Eta;' => 'Greek capital letter eta',
+				'&Theta;' => 'Greek capital letter theta',
+				'&Iota;' => 'Greek capital letter iota',
+				'&Kappa;' => 'Greek capital letter kappa',
+				'&Lambda;' => 'Greek capital letter lambda',
+				'&Mu;' => 'Greek capital letter mu',
+				'&Nu;' => 'Greek capital letter nu',
+				'&Xi;' => 'Greek capital letter xi',
+				'&Omicron;' => 'Greek capital letter omicron',
+				'&Pi;' => 'Greek capital letter pi',
+				'&Rho;' => 'Greek capital letter rho',
+				'&Sigma;' => 'Greek capital letter sigma',
+				'&Tau;' => 'Greek capital letter tau',
+				'&Upsilon;' => 'Greek capital letter upsilon',
+				'&Phi;' => 'Greek capital letter phi',
+				'&Chi;' => 'Greek capital letter chi',
+				'&Psi;' => 'Greek capital letter psi',
+				'&Omega;' => 'Greek capital letter omega',
+				'&alpha;' => 'Greek small letter alpha',
+				'&beta;' => 'Greek small letter beta',
+				'&gamma;' => 'Greek small letter gamma',
+				'&delta;' => 'Greek small letter delta',
+				'&epsilon;' => 'Greek small letter epsilon',
+				'&zeta;' => 'Greek small letter zeta',
+				'&eta;' => 'Greek small letter eta',
+				'&theta;' => 'Greek small letter theta',
+				'&iota;' => 'Greek small letter iota',
+				'&kappa;' => 'Greek small letter kappa',
+				'&lambda;' => 'Greek small letter lambda',
+				'&mu;' => 'Greek small letter mu',
+				'&nu;' => 'Greek small letter nu',
+				'&xi;' => 'Greek small letter xi',
+				'&omicron;' => 'Greek small letter omicron',
+				'&pi;' => 'Greek small letter pi',
+				'&rho;' => 'Greek small letter rho',
+				'&sigmaf;' => 'Greek small letter final sigma',
+				'&sigma;' => 'Greek small letter sigma',
+				'&tau;' => 'Greek small letter tau',
+				'&upsilon;' => 'Greek small letter upsilon',
+				'&phi;' => 'Greek small letter phi',
+				'&chi;' => 'Greek small letter chi',
+				'&psi;' => 'Greek small letter psi',
+				'&omega;' => 'Greek small letter omega'
 			)
 		);
 		if ( $category )
@@ -238,8 +304,8 @@ class HTMLSpecialCharactersHelper {
 		$innards = <<<HTML
 		<div class="htmlspecialcharacter">
 		<span id='commoncodes_$for'>$innards</span>
-		<a href='#' class="htmlspecialcharacter_helplink" onclick="jQuery('#htmlhelperhelp_$for').toggle(); return false;">Help?</a>
-		<a href='#' class="htmlspecialcharacter_morelink" onclick="jQuery('#commoncodes_$for, #morehtmlspecialcharacters_$for').toggle(); return false;">Toggle more</a>
+		<a href='#' class="htmlspecialcharacter_helplink" onclick="jQuery('#htmlhelperhelp_$for').toggle(); return false;" title="Click to toggle display of help">Help?</a>
+		<a href='#' class="htmlspecialcharacter_morelink" onclick="jQuery('#commoncodes_$for, #morehtmlspecialcharacters_$for').toggle(); return false;" title="Click to toggle the display of more special characters">Toggle more</a>
 		$moreinnards
 		<p id="htmlhelperhelp_$for" style='font-size:x-small; display:none;'>Click to insert character into post.  Mouse-over character for more info. Some characters may not display in older browsers.</p>
 		</div>
@@ -259,30 +325,6 @@ HTML;
 		</fieldset>
 HTML;
 	}
-
-    function addbuttons() {
-    	global $wp_db_version;
-        if ( !current_user_can('edit_posts') && !current_user_can('edit_pages') ) return;
-
-       	if ( 3664 <= $wp_db_version && 'true' == get_user_option('rich_editing') ) {
-			// Load and append TinyMCE external plugins
-			add_filter('mce_plugins', array(&$this, 'mce_plugins'));
-			add_filter('mce_buttons', array(&$this, 'mce_buttons'));
-			add_action('tinymce_before_init', array(&$this, 'tinymce_before_init'));
-		}
-	}
-	
-	function mce_plugins( $plugins ) {
-            array_push($plugins, '-htmlspecialcharactershelper');
-            return $plugins;
-    }
-    function mce_buttons( $buttons ) {
-            array_push($buttons, 'separator', 'htmlspecialcharactershelper');
-            return $buttons;
-    }
-    function tinymce_before_init() {
-            echo 'tinyMCE.loadPlugin("htmlspecialcharactershelper", "' . $this->fullfolderurl . "tinymce/\");\n";
-    }
 
 	function insert_js() {
 		echo <<<HTML
@@ -330,6 +372,6 @@ HTML;
 endif; // end if !class_exists()
 
 if ( is_admin() && class_exists('HTMLSpecialCharactersHelper') )
-	$HTMLSpecialCharactersHelper = new HTMLSpecialCharactersHelper();
+	new HTMLSpecialCharactersHelper();
 
 ?>
