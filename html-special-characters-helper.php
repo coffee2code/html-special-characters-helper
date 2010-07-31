@@ -1,53 +1,31 @@
 <?php
+/**
+ * @package HTML_Special_Characters_Helper
+ * @author Scott Reilly
+ * @version 1.6
+ */
 /*
 Plugin Name: HTML Special Characters Helper
-Version: 1.5
+Version: 1.6
 Plugin URI: http://coffee2code.com/wp-plugins/html-special-characters-helper
 Author: Scott Reilly
 Author URI: http://coffee2code.com
 Description: Admin widget on the Write Post page for inserting HTML encodings of special characters into the post.
 
-The admin widget is labeled "HTML Special Characters" and is present in the admin Write Post and Write Page 
-pages. Clicking on any special character in the widget causes its character encoding to be inserted into the
-post body text field at the current cursor location (or at the end of the post if the cursor isn't located
-in the post body field).  Hovering over any of the special characters causes a hover text box to appear
-that shows the HTML entity encoding for the character as well as the name of the character.
+Compatible with WordPress 2.6+, 2.7+, 2.8+, 2.9+, 3.0+.
 
-Note that when used in the visual editor mode the special character itself is added to the post body. Also note
-that the visual editor has its own special characters popup helper accessible via the advanced toolbar, which
-depending on your usage, may make this plugin unnecessary for you.  In truth, the plugin is intended more for
-the non-visual (aka HTML) mode as that is the mode I (the plugin author) use.
+=>> Read the accompanying readme.txt file for instructions and documentation.
+=>> Also, visit the plugin's homepage for additional information and updates.
+=>> Or visit: http://wordpress.org/extend/plugins/html-special-characters-helper/
 
-Compatible with WordPress 2.6+, 2.7+, 2.8+.
-
-=>> Read the accompanying readme.txt file for more information.  Also, visit the plugin's homepage
-=>> for more information and the latest updates
-
-INSTALLATION:
-
-1. Download the file http://coffee2code.com/wp-plugins/html-special-characters-helper.zip and unzip it into your 
-/wp-content/plugins/ directory.
-2. Activate the plugin through the 'Plugins' admin menu in WordPress
-3. An admin widget entitled "HTML Special Characters" will now be present in your write post and write page forms.
-Simply click on any character that you would like inserted into your post.
-
-TODO:
-
-	* Add support for accented characters
-	
-REFERENCES:
-
-	* http://www.w3schools.com/tags/ref_entities.asp
-	* http://tlt.psu.edu/suggestions/international/web/codehtml.html
-	* http://wdvl.internet.com/Authoring/HTML/Entities/
 */
 
 /*
-Copyright (c) 2007-2009 by Scott Reilly (aka coffee2code)
+Copyright (c) 2007-2010 by Scott Reilly (aka coffee2code)
 
-Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation 
-files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, 
-modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the 
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation
+files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy,
+modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the
 Software is furnished to do so, subject to the following conditions:
 
 The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
@@ -58,24 +36,40 @@ LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRA
 IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
-if (!class_exists('HTMLSpecialCharactersHelper')) :
+if ( !class_exists( 'HTMLSpecialCharactersHelper' ) ) :
 
 class HTMLSpecialCharactersHelper {
 	var $title = 'HTML Special Characters';
 
+	/**
+	 * Constructor
+	 *
+	 * @return void
+	 */
 	function HTMLSpecialCharactersHelper() {
-		global $pagenow;
-		if ( in_array($pagenow, array('page.php', 'page-new.php', 'post.php', 'post-new.php')) )
-			add_action('admin_footer', array(&$this, 'insert_js'));
-		add_action('html_special_characters_head', array(&$this, 'insert_js'));
-		add_action('admin_init', array(&$this,'admin_init'));
+		add_action( 'admin_init', array( &$this,'admin_init' ) );
 	}
 
+	/**
+	 * Hook actions and register adding the plugins admin meta box
+	 *
+	 * @return void
+	 */
 	function admin_init() {
-		add_meta_box('htmlspecialchars', $this->title, array(&$this, 'add_meta_box'), 'page', 'side');
-		add_meta_box('htmlspecialchars', $this->title, array(&$this, 'add_meta_box'), 'post', 'side');
+		global $pagenow;
+		if ( in_array( $pagenow, array( 'page.php', 'page-new.php', 'post.php', 'post-new.php' ) ) )
+			add_action( 'admin_footer', array( &$this, 'insert_js' ) );
+		add_action( 'html_special_characters_head', array( &$this, 'insert_css' ) );
+		add_meta_box( 'htmlspecialchars', $this->title, array( &$this, 'add_meta_box' ), 'page', 'side' );
+		add_meta_box( 'htmlspecialchars', $this->title, array( &$this, 'add_meta_box' ), 'post', 'side' );
 	}
 
+	/**
+	 * Returns an associative array of all the categories of HTML special characters, their entities/codes, and their descriptions.
+	 *
+	 * @param string|null $category (optional) The name of the sub-category of codes to return. Default of null returns all
+	 * @return array Array of HTML special characters
+	 */
 	function html_special_characters( $category = null ) {
 		$codes = array(
 			'common' => array(
@@ -87,7 +81,7 @@ class HTMLSpecialCharactersHelper {
 				'&cent;' => 'cent sign',
 				'&pound;' => 'pound sign',
 				'&euro;' => 'euro sign',
-				'&yen;' => 'yen sign', 
+				'&yen;' => 'yen sign',
 				'&sup1;' => 'superscript one',
 				'&sup2;' => 'superscript two - squared',
 				'&sup3;' => 'superscript three - cubed',
@@ -274,48 +268,71 @@ class HTMLSpecialCharactersHelper {
 		);
 		if ( $category )
 			$codes = $codes[$category];
-		return apply_filters('c2c_html_special_characters', $codes);
+		return apply_filters( 'c2c_html_special_characters', $codes );
 	}
 
-	// Need this function instead of having the action directly call show_html_special_characters_content() because
-	//	the action sends over multiple arguments that we don't want.  Since show_html_special_characters() also calls
-	//	show_html_special_characters_content() we can't just have it ignore arguments
+	/**
+	 * Adds the meta box
+	 *
+	 * Need this function instead of having the action directly call show_html_special_characters_content() because
+	 * the action sends over multiple arguments that we don't want.  Since show_html_special_characters() also calls
+	 * show_html_special_characters_content() we can't just have it ignore arguments
+	 */
 	function add_meta_box() {
 		$this->show_html_special_characters_content();
 	}
 
+	/**
+	 * Outputs the HTML special characters listing
+	 *
+	 * @param string $for (optional) The context for the data.  Default of 'dbx' indicates it is for the admin meta box.
+	 * @param bool $echo (optional) Echo the output?  Default is true.
+	 * @return string The listing
+	 */
 	function show_html_special_characters_content( $for = 'dbx', $echo = true ) {
-		if ( empty($for) ) $for = 'dbx';
+		if ( empty($for) )
+			$for = 'dbx';
 		$codes = $this->html_special_characters();
 		$innards = '';
 		$moreinnards = "<dl id='morehtmlspecialcharacters_$for' style='display:none;'>";
 		$i = 0;
-		foreach ( array_keys($codes) as $cat ) {
-			if ( 'common' != $cat ) $moreinnards .= "<dt style='font-size:xx-small;'>$cat:</dt><dd style='margin-left:6px;'>";
+		foreach ( array_keys( $codes ) as $cat ) {
+			if ( 'common' != $cat )
+				$moreinnards .= "<dt style='font-size:xx-small;'>$cat:</dt><dd style='margin-left:6px;'>";
 			foreach ( $codes[$cat] as $code => $description ) {
-					$ecode = htmlspecialchars($code);
-					$item = "<acronym onclick=\"insert_htmlspecialcharacter('$ecode');\" title='$ecode $description'> $code</acronym>";
+					$ecode = htmlspecialchars( $code );
+					$item = "<acronym onclick=\"send_to_editor('$ecode');\" title='$ecode $description'> $code</acronym>";
 					if ( 'common' == $cat ) $innards .= $item;
 					else $moreinnards .= $item;
 			}
-			if ( 'common' != $cat ) $moreinnards .= '</dd>';
+			if ( 'common' != $cat )
+				$moreinnards .= '</dd>';
 		}
 		$moreinnards .= '</dl>';
 		$innards = <<<HTML
 		<div class="htmlspecialcharacter">
 		<span id='commoncodes_$for'>$innards</span>
 		<a href='#' class="htmlspecialcharacter_helplink" onclick="jQuery('#htmlhelperhelp_$for').toggle(); return false;" title="Click to toggle display of help">Help?</a>
-		<a href='#' class="htmlspecialcharacter_morelink" onclick="jQuery('#commoncodes_$for, #morehtmlspecialcharacters_$for').toggle(); return false;" title="Click to toggle the display of more special characters">Toggle more</a>
+		<a href='#' class="htmlspecialcharacter_morelink"
+			onclick="jQuery('#commoncodes_$for, #morehtmlspecialcharacters_$for, #htmlhelper_more, #htmlhelper_less').toggle(); return false;"
+			title="Click to toggle the display of more special characters">See <span id="htmlhelper_more">more</span><span id="htmlhelper_less" style="display:none;">less</span></a>
 		$moreinnards
 		<p id="htmlhelperhelp_$for" style='font-size:x-small; display:none;'>Click to insert character into post.  Mouse-over character for more info. Some characters may not display in older browsers.</p>
 		</div>
 HTML;
-		if ( $echo ) echo $innards;
+		if ( $echo )
+			echo $innards;
 		return $innards;
 	}
 
+	/**
+	 * Outputs a wrapper around the HTML special characters listing
+	 *
+	 * @param string $for (optional) The context for the data.  Default of 'dbx' indicates it is for the admin meta box.
+	 * @return void (Text is echoed)
+	 */
 	function show_html_special_characters( $for = 'dbx' ) {
-		$innards = $this->show_html_special_characters_content($for, false);
+		$innards = $this->show_html_special_characters_content( $for, false );
 		echo <<<HTML
 		<fieldset id="htmlspecialcharacterhelper_$for" class="dbx-box">
 			<h3 class="dbx-handle">{$this->title}</h3>
@@ -323,10 +340,16 @@ HTML;
 				$innards
 			</div>
 		</fieldset>
+
 HTML;
 	}
 
-	function insert_js() {
+	/**
+	 * Outputs the CSS needed by the HTML special characters admin widget
+	 *
+	 * @return void (Text is echoed)
+	 */
+	function insert_css() {
 		echo <<<HTML
 		<style type="text/css">
 			.htmlspecialcharacter acronym {
@@ -346,32 +369,14 @@ HTML;
 				display:none;
 			}
 		</style>
-		<script type="text/javascript">
-			function insert_htmlspecialcharacter(character) {
-				var inst;
-				if ((typeof tinyMCE != "undefined") && (inst = tinyMCE.selectedInstance)) {
-					try {
-						if (tinyMCEPopup)
-							tinyMCEPopup.restoreSelection();
-					} catch(e) {
-						inst.getWin().focus();
-						if (inst.selectionBookmark)
-							inst.selection.moveToBookmark(inst.selectionBookmark);
-					}
-					tinyMCE.execCommand('mceInsertContent', false, character);
-				} else {
-					edInsertContent(edCanvas, character);
-				}
-				return false;
-			}
-		</script>
+
 HTML;
 	}
 } // end HTMLSpecialCharactersHelper
 
 endif; // end if !class_exists()
 
-if ( is_admin() && class_exists('HTMLSpecialCharactersHelper') )
+if ( is_admin() && class_exists( 'HTMLSpecialCharactersHelper' ) )
 	new HTMLSpecialCharactersHelper();
 
 ?>
