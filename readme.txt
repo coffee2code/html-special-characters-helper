@@ -3,11 +3,12 @@ Contributors: coffee2code
 Donate link: http://coffee2code.com/donate
 Tags: post, admin widget, html special characters, write post, dbx, entity codes, coffee2code
 Requires at least: 2.6
-Tested up to: 2.8.1
-Stable tag: 1.5
-Version: 1.5
+Tested up to: 3.0.1
+Stable tag: 1.6
+Version: 1.6
 
 Admin widget on the Write Post page for inserting HTML encodings of special characters into the post.
+
 
 == Description ==
 
@@ -17,9 +18,10 @@ The admin widget is labeled "HTML Special Characters" and is present in the admi
 
 Note that when used in the visual editor mode the special character itself is added to the post body. Also note that the visual editor has its own special characters popup helper accessible via the advanced toolbar, which depending on your usage, may make this plugin unnecessary for you.  In truth, the plugin is intended more for the non-visual (aka HTML) mode as that is the mode I (the plugin author) use.
 
+
 == Installation ==
 
-1. Unzip `html-special-characters-helper.zip` inside the `/wp-content/plugins/` directory
+1. Unzip `html-special-characters-helper.zip` inside the `/wp-content/plugins/` directory (or install via the built-in WordPress plugin installer)
 1. Activate the plugin through the 'Plugins' admin menu in WordPress
 1. An admin widget entitled "HTML Special Characters" will now be present in your write post and write page forms.  Simply click on any character that you would like inserted into your post.
 
@@ -40,6 +42,7 @@ Try:
 * http://tlt.psu.edu/suggestions/international/web/codehtml.html
 * http://wdvl.internet.com/Authoring/HTML/Entities/
 
+
 == Screenshots ==
 
 1. A screenshot of the HTML Special Characters admin widget in its default state
@@ -47,16 +50,25 @@ Try:
 3. A screenshot of the HTML Special Characters admin widget after "Help?" is clicked
 4. A screenshot of the HTML Special Characters admin widget when the mouse is hovering over one of the special characters.  The hover text that appears shows the HTML entity encoding for the character as well as the name of the character
 
+
 == Changelog ==
 
 = 1.6 =
+* Extract all inline JavaScript into add_admin_js() and output via admin_print_footer_scripts action
+* Extract all inline CSS into add_admin_css()
+* Only output CSS on the add/edit post/page pages
+* Remove all references to $for (which was context variable that lingered from former rte popup)
 * Remove JavaScript related to inserting text into editor and just use send_to_editor()
-* Change the "Toggle more?" link to "See more"/"See less" (JavaScript toggles between the two as appropriate)
+* Change the 'Toggle more?' link to 'See more'/'See less' (JavaScript toggles between the two as appropriate)
 * Move hooking of actions out of constructor and into class's admin_init()
+* Rename add_css() to add_admin_css()
+* Assign object instance to global variable, $c2c_html_special_characters_helper, to allow for external manipulation
+* Rename class from 'HTMLSpecialCharactersHelper' to 'c2c_HTMLSpecialCharactersHelper'
+* Don't define class unless within admin section
 * Note compatibility with WP 3.0+
 * Minor code reformatting (spacing)
 * Remove documentation and instructions from top of plugin file (all of that and more are contained in readme.txt)
-* Add PHPDoc
+* Add PHPDoc documentation
 * Add package info to top of file
 * Update copyright date
 * Add Upgrade Notice section to readme.txt
@@ -77,7 +89,8 @@ Try:
 = 1.0 =
 * Initial release
 
+
 == Upgrade Notice ==
 
 = 1.6 =
-Recommended major compatibility update. Noted compatibility with WP 3.0+.
+Recommended major compatibility update. Highlights: JS/CSS handling tweaks; misc non-functionality tweaks; noted compatibility with WP 3.0+.

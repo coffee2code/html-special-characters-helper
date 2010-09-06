@@ -7,7 +7,7 @@
 /*
 Plugin Name: HTML Special Characters Helper
 Version: 1.6
-Plugin URI: http://coffee2code.com/wp-plugins/html-special-characters-helper
+Plugin URI: http://coffee2code.com/wp-plugins/html-special-characters-helper/
 Author: Scott Reilly
 Author URI: http://coffee2code.com
 Description: Admin widget on the Write Post page for inserting HTML encodings of special characters into the post.
@@ -36,9 +36,9 @@ LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRA
 IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
-if ( !class_exists( 'HTMLSpecialCharactersHelper' ) ) :
+if ( is_admin() && !class_exists( 'c2c_HTMLSpecialCharactersHelper' ) ) :
 
-class HTMLSpecialCharactersHelper {
+class c2c_HTMLSpecialCharactersHelper {
 	var $title = 'HTML Special Characters';
 
 	/**
@@ -46,7 +46,7 @@ class HTMLSpecialCharactersHelper {
 	 *
 	 * @return void
 	 */
-	function HTMLSpecialCharactersHelper() {
+	function c2c_HTMLSpecialCharactersHelper() {
 		add_action( 'admin_init', array( &$this,'admin_init' ) );
 	}
 
@@ -57,9 +57,10 @@ class HTMLSpecialCharactersHelper {
 	 */
 	function admin_init() {
 		global $pagenow;
-		if ( in_array( $pagenow, array( 'page.php', 'page-new.php', 'post.php', 'post-new.php' ) ) )
-			add_action( 'admin_footer', array( &$this, 'insert_js' ) );
-		add_action( 'html_special_characters_head', array( &$this, 'insert_css' ) );
+		if ( in_array( $pagenow, array( 'page.php', 'page-new.php', 'post.php', 'post-new.php' ) ) ) {
+			add_action( 'admin_head', array( &$this, 'insert_admin_css' ) );
+			add_action( 'admin_print_footer_scripts', array( &$this, 'insert_admin_js' ) );
+		}
 		add_meta_box( 'htmlspecialchars', $this->title, array( &$this, 'add_meta_box' ), 'page', 'side' );
 		add_meta_box( 'htmlspecialchars', $this->title, array( &$this, 'add_meta_box' ), 'post', 'side' );
 	}
@@ -285,20 +286,17 @@ class HTMLSpecialCharactersHelper {
 	/**
 	 * Outputs the HTML special characters listing
 	 *
-	 * @param string $for (optional) The context for the data.  Default of 'dbx' indicates it is for the admin meta box.
 	 * @param bool $echo (optional) Echo the output?  Default is true.
 	 * @return string The listing
 	 */
-	function show_html_special_characters_content( $for = 'dbx', $echo = true ) {
-		if ( empty($for) )
-			$for = 'dbx';
+	function show_html_special_characters_content( $echo = true ) {
 		$codes = $this->html_special_characters();
 		$innards = '';
-		$moreinnards = "<dl id='morehtmlspecialcharacters_$for' style='display:none;'>";
+		$moreinnards = "<dl id='morehtmlspecialcharacters'>";
 		$i = 0;
 		foreach ( array_keys( $codes ) as $cat ) {
 			if ( 'common' != $cat )
-				$moreinnards .= "<dt style='font-size:xx-small;'>$cat:</dt><dd style='margin-left:6px;'>";
+				$moreinnards .= "<dt>$cat:</dt><dd>";
 			foreach ( $codes[$cat] as $code => $description ) {
 					$ecode = htmlspecialchars( $code );
 					$item = "<acronym onclick=\"send_to_editor('$ecode');\" title='$ecode $description'> $code</acronym>";
@@ -311,14 +309,15 @@ class HTMLSpecialCharactersHelper {
 		$moreinnards .= '</dl>';
 		$innards = <<<HTML
 		<div class="htmlspecialcharacter">
-		<span id='commoncodes_$for'>$innards</span>
-		<a href='#' class="htmlspecialcharacter_helplink" onclick="jQuery('#htmlhelperhelp_$for').toggle(); return false;" title="Click to toggle display of help">Help?</a>
-		<a href='#' class="htmlspecialcharacter_morelink"
-			onclick="jQuery('#commoncodes_$for, #morehtmlspecialcharacters_$for, #htmlhelper_more, #htmlhelper_less').toggle(); return false;"
-			title="Click to toggle the display of more special characters">See <span id="htmlhelper_more">more</span><span id="htmlhelper_less" style="display:none;">less</span></a>
+		<span id='commoncodes'>$innards</span>
+		<a href='#' class="htmlspecialcharacter_helplink" title="Click to toggle display of help">Help?</a>
+		<a href='#' class="htmlspecialcharacter_morelink" title="Click to toggle the display of more special characters">
+			See <span id="htmlhelper_more">more</span><span id="htmlhelper_less">less</span>
+		</a>
 		$moreinnards
-		<p id="htmlhelperhelp_$for" style='font-size:x-small; display:none;'>Click to insert character into post.  Mouse-over character for more info. Some characters may not display in older browsers.</p>
+		<p id="htmlhelperhelp">Click to insert character into post.  Mouse-over character for more info. Some characters may not display in older browsers.</p>
 		</div>
+
 HTML;
 		if ( $echo )
 			echo $innards;
@@ -328,13 +327,12 @@ HTML;
 	/**
 	 * Outputs a wrapper around the HTML special characters listing
 	 *
-	 * @param string $for (optional) The context for the data.  Default of 'dbx' indicates it is for the admin meta box.
 	 * @return void (Text is echoed)
 	 */
-	function show_html_special_characters( $for = 'dbx' ) {
-		$innards = $this->show_html_special_characters_content( $for, false );
+	function show_html_special_characters() {
+		$innards = $this->show_html_special_characters_content( false );
 		echo <<<HTML
-		<fieldset id="htmlspecialcharacterhelper_$for" class="dbx-box">
+		<fieldset id="htmlspecialcharacterhelper" class="dbx-box">
 			<h3 class="dbx-handle">{$this->title}</h3>
 			<div class="dbx-content">
 				$innards
@@ -349,34 +347,55 @@ HTML;
 	 *
 	 * @return void (Text is echoed)
 	 */
-	function insert_css() {
+	function insert_admin_css() {
 		echo <<<HTML
 		<style type="text/css">
 			.htmlspecialcharacter acronym {
 				margin:0.1em 0.5em 0.1em 0;
 				cursor:pointer;
 			}
-			.htmlspecialcharacter a {
+			.htmlspecialcharacter a, #morehtmlspecialcharacters dt {
 				font-size:xx-small;
 			}
-			#htmlspecialcharacterhelper_rte {
-				border:0;
+			#morehtmlspecialcharacters dd {
+				margin-left:6px;
 			}
-			#htmlspecialcharacterhelper_rte acronym {
-				font-size:1.2em;
+			#htmlhelperhelp {
+				font-size:x-small; display:none;
 			}
-			#htmlspecialcharacterhelper_rte h3.dbx-handle, #htmlspecialcharacterhelper_rte a.htmlspecialcharacter_helplink {
+			#morehtmlspecialcharacters, #htmlhelper_less {
 				display:none;
 			}
 		</style>
 
 HTML;
 	}
-} // end HTMLSpecialCharactersHelper
+
+	/**
+	 * Outputs the JS needed by the HTML special characters admin widget
+	 *
+	 * @return void (Text is echoed)
+	 */
+	function insert_admin_js() {
+		echo <<<JS
+		<script type="text/javascript">
+		jQuery(document).ready(function($) {
+			$('.htmlspecialcharacter_helplink').click(function() {
+				$('#htmlhelperhelp').toggle(); return false;
+			});
+			$('.htmlspecialcharacter_morelink').click(function() {
+				$('#commoncodes, #morehtmlspecialcharacters, #htmlhelper_more, #htmlhelper_less').toggle(); return false;
+			});
+		});
+		</script>
+
+JS;
+	}
+
+} // end c2c_HTMLSpecialCharactersHelper
+
+$GLOBALS['c2c_html_special_characters_helper'] = new c2c_HTMLSpecialCharactersHelper();
 
 endif; // end if !class_exists()
-
-if ( is_admin() && class_exists( 'HTMLSpecialCharactersHelper' ) )
-	new HTMLSpecialCharactersHelper();
 
 ?>
