@@ -5,17 +5,17 @@ Tags: post, admin widget, html special characters, write post, dbx, entity codes
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Requires at least: 2.8
-Tested up to: 4.1
-Stable tag: 2.0
+Tested up to: 4.3
+Stable tag: 2.0.1
 
 Admin widget on the Add/Edit Post pages for inserting HTML encodings of special characters into the post.
 
 
 == Description ==
 
-Add an admin widget labeled "HTML Special Characters" that is present in the admin Add/Edit Post and Add/Edit Page pages. Clicking on any special character in the widget causes its character encoding to be inserted into the post body text field at the current cursor location (or at the end of the post if the cursor isn't located in the post body field).  Hovering over any of the special characters in the admin widget causes hover text to appear that shows the HTML entity encoding for the character as well as the name of the character.
+Add an admin widget labeled "HTML Special Characters" that is present in the admin Add/Edit Post and Add/Edit Page pages. Clicking on any special character in the widget causes its character encoding to be inserted into the post body text field at the current cursor location (or at the end of the post if the cursor isn't located in the post body field). Hovering over any of the special characters in the admin widget causes hover text to appear that shows the HTML entity encoding for the character as well as the name of the character.
 
-Note that when used in the visual editor mode the special character itself is added to the post body. Also note that the visual editor has its own special characters popup helper accessible via the advanced toolbar, which depending on your usage, may make this plugin unnecessary for you.  In truth, the plugin is intended more for the non-visual (aka HTML) mode as that is the mode I (the plugin author) use.
+Note that when used in the visual editor mode the special character itself is added to the post body. Also note that the visual editor has its own special characters popup helper accessible via the advanced toolbar, which depending on your usage, may make this plugin unnecessary for you. In truth, the plugin is intended more for the non-visual (aka HTML) mode as that is the mode I (the plugin author) use.
 
 Links: [Plugin Homepage](http://coffee2code.com/wp-plugins/html-special-characters-helper/) | [Plugin Directory Page](https://wordpress.org/plugins/html-special-characters-helper/) | [Author Homepage](http://coffee2code.com)
 
@@ -24,14 +24,14 @@ Links: [Plugin Homepage](http://coffee2code.com/wp-plugins/html-special-characte
 
 1. Unzip `html-special-characters-helper.zip` inside the `/wp-content/plugins/` directory (or install via the built-in WordPress plugin installer)
 1. Activate the plugin through the 'Plugins' admin menu in WordPress
-1. An admin widget entitled "HTML Special Characters" will now be present in your write post and write page forms.  Simply click on any character that you would like inserted into your post.
+1. An admin widget entitled "HTML Special Characters" will now be present in your write post and write page forms. Simply click on any character that you would like inserted into your post.
 
 
 == Frequently Asked Questions ==
 
 = How do I use the "HTML Special Characters" admin widget to insert special characters into other post fields (such as the post title)? =
 
-You can't.  The plugin only inserts the HTML character encodings into the post body.  However, you can certainly hover over the character you want to use to see the HTML encoding for it (it'll start with an ampersand, `&`, and end with a semi-color, `;`) and type that into the field. 
+You can't. The plugin only inserts the HTML character encodings into the post body. However, you can certainly hover over the character you want to use to see the HTML encoding for it (it'll start with an ampersand, `&`, and end with a semi-color, `;`) and type that into the field.
 
 = I've activated the plugin and don't see the "HTML Special Characters" admin widget when I go to write a post; where is it? =
 
@@ -49,14 +49,14 @@ Try:
 == Screenshots ==
 
 1. A screenshot of the HTML Special Characters admin widget in its default state
-2. A screenshot of the HTML Special Characters admin widget when "Toggle More" is clicked to display more special characters.  Note all characters are categorized into labeled sections
+2. A screenshot of the HTML Special Characters admin widget when "Toggle More" is clicked to display more special characters. Note all characters are categorized into labeled sections
 3. A screenshot of the HTML Special Characters admin widget after "Help?" is clicked
-4. A screenshot of the HTML Special Characters admin widget when the mouse is hovering over one of the special characters.  The hover text that appears shows the HTML entity encoding for the character as well as the name of the character
+4. A screenshot of the HTML Special Characters admin widget when the mouse is hovering over one of the special characters. The hover text that appears shows the HTML entity encoding for the character as well as the name of the character
 
 
 == Filters ==
 
-The plugin exposes two filters for hooking.  Typically, customizations utilizing this hook would be put into your active theme's functions.php file, or used by another plugin.
+The plugin exposes two filters for hooking. Typically, customizations utilizing this hook would be put into your active theme's functions.php file, or used by another plugin.
 
 = c2c_html_special_characters (filter) =
 
@@ -117,6 +117,11 @@ add_filter( 'c2c_html_special_characters_post_types', 'more_html_special_charact
 `
 
 == Changelog ==
+
+= 2.0.1 (2015-09-08) =
+* Change: Use `dirname(__FILE__)` instead of `__DIR__` since the latter is only available on PHP 5.3+.
+* Change: Note compatibility through WP 4.3+.
+* Change: Minor spacing tweaks to readme.txt.
 
 = 2.0 (2015-02-15) =
 * Add private `get_default_html_special_characters()` and move characters data array into it (so default data can be directly retrieved)

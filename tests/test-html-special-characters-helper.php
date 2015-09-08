@@ -9,14 +9,14 @@ class HTML_Special_Characters_Helper_Test extends WP_UnitTestCase {
 	}
 
 
-	/**
+	/*
 	 *
 	 * DATA PROVIDERS
 	 *
 	 */
 
 
-	/**
+	/*
 	 *
 	 * HELPER FUNCTIONS
 	 *
@@ -55,7 +55,7 @@ class HTML_Special_Characters_Helper_Test extends WP_UnitTestCase {
 	}
 
 
-	/**
+	/*
 	 *
 	 * TESTS
 	 *
@@ -67,7 +67,7 @@ class HTML_Special_Characters_Helper_Test extends WP_UnitTestCase {
 	}
 
 	function test_version() {
-		$this->assertEquals( '2.0', c2c_HTMLSpecialCharactersHelper::version() );
+		$this->assertEquals( '2.0.1', c2c_HTMLSpecialCharactersHelper::version() );
 	}
 
 	function test_get_default_html_special_characters_returns_all_categories_by_default() {
