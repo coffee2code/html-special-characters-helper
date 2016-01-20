@@ -1,4 +1,4 @@
-jQuery(document).ready(function($) {
+jQuery(function($) {
 	$('.htmlspecialcharacter_helplink').click(function() {
 		$('#htmlhelperhelp').toggle(); return false;
 	});

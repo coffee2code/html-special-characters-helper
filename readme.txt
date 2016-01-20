@@ -5,8 +5,8 @@ Tags: post, admin widget, html special characters, write post, dbx, entity codes
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Requires at least: 2.8
-Tested up to: 4.3
-Stable tag: 2.0.1
+Tested up to: 4.4
+Stable tag: 2.1
 
 Admin widget on the Add/Edit Post pages for inserting HTML encodings of special characters into the post.
 
@@ -49,7 +49,7 @@ Try:
 == Screenshots ==
 
 1. A screenshot of the HTML Special Characters admin widget in its default state
-2. A screenshot of the HTML Special Characters admin widget when "Toggle More" is clicked to display more special characters. Note all characters are categorized into labeled sections
+2. A screenshot of the HTML Special Characters admin widget when "See More" is clicked to display more special characters. Note all characters are categorized into labeled sections
 3. A screenshot of the HTML Special Characters admin widget after "Help?" is clicked
 4. A screenshot of the HTML Special Characters admin widget when the mouse is hovering over one of the special characters. The hover text that appears shows the HTML entity encoding for the character as well as the name of the character
 
@@ -117,6 +117,22 @@ add_filter( 'c2c_html_special_characters_post_types', 'more_html_special_charact
 `
 
 == Changelog ==
+
+= 2.1 (2016-01-19) =
+* New: Add assets/ sub-directory and move admin.js and admin.css into it.
+* New: Add support for language packs:
+    * Change textdomain from 'c2c_hsch' to 'html-special-characters-helper'.
+    * Remove .pot file and /lang subdirectory.
+    * Remove 'Domain Path' from plugin header.
+* New: In `do_admin_init()`, bail early if an AJAX request is being processed.
+* New: Create empty index.php to prevent files from being listed if web server has enabled directory listings.
+* Change: Remove `do_init()` and move `load_plugin_textdomain()` into `do_admin_init()`.
+* Change: Use different jQuery .ready() syntax.
+* Change: Minor code reformatting (spacing).
+* Change: Note compatibility through WP 4.4+.
+* Change: Explicitly declare methods in unit tests as public.
+* Change: Update screenshots.
+* Change: Update copyright date (2016).
 
 = 2.0.1 (2015-09-08) =
 * Change: Use `dirname(__FILE__)` instead of `__DIR__` since the latter is only available on PHP 5.3+.
@@ -239,6 +255,12 @@ add_filter( 'c2c_html_special_characters_post_types', 'more_html_special_charact
 
 
 == Upgrade Notice ==
+
+= 2.1 =
+Minor update: moved JS and CSS assets into subdirectory; minor tweaks and improvements; improved support for localization; minor unit test tweaks; verified compatibility through WP 4.4+; updated screenshots; and updated copyright date (2016)
+
+= 2.0.1 =
+Minor bugfix release for users running PHP 5.2.x: revert use of a constant only defined in PHP 5.3+. You really should upgrade your PHP or your host if this affects you. Also noted compatibility with WP 4.3+.
 
 = 2.0 =
 Recommended update: internal improvements; added unit tests; noted compatibility through WP 4.1+; updated copyright date (2015)
