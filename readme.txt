@@ -22,9 +22,9 @@ Links: [Plugin Homepage](http://coffee2code.com/wp-plugins/html-special-characte
 
 == Installation ==
 
-1. Unzip `html-special-characters-helper.zip` inside the `/wp-content/plugins/` directory (or install via the built-in WordPress plugin installer)
-1. Activate the plugin through the 'Plugins' admin menu in WordPress
-1. An admin widget entitled "HTML Special Characters" will now be present in your write post and write page forms. Simply click on any character that you would like inserted into your post.
+1. Install via the built-in WordPress plugin installer. Or download and unzip `html-special-characters-helper.zip` inside the plugins directory for your site (typically `wp-content/plugins/`)
+2. Activate the plugin through the 'Plugins' admin menu in WordPress
+3. An admin widget entitled "HTML Special Characters" will now be present in your write post and write page forms. Simply click on any character that you would like inserted into your post.
 
 
 == Frequently Asked Questions ==
@@ -56,7 +56,8 @@ Try:
 
 == Filters ==
 
-The plugin exposes two filters for hooking. Typically, customizations utilizing this hook would be put into your active theme's functions.php file, or used by another plugin.
+The plugin exposes two filters for hooking. Typically, code making use of filters should ideally be put into a mu-plugin or site-specific plugin (which is beyond the scope of this readme to explain).
+
 
 = c2c_html_special_characters (filter) =
 
@@ -125,6 +126,7 @@ add_filter( 'c2c_html_special_characters_post_types', 'more_html_special_charact
 * Change: Enable more error output for unit tests.
 * Change: Note compatibility through WP 4.7+.
 * Change: Remove support for WordPress older than 4.6 (should still work for earlier versions).
+* Change: Minor readme.txt improvements.
 * Change: Update copyright date (2017).
 * Change: Minor code reformatting (add trailing comma to last array elements).
 * New: Add LICENSE file.
