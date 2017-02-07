@@ -10,7 +10,7 @@
  * License URI: http://www.gnu.org/licenses/gpl-2.0.html
  * Description: Admin widget on the Write Post page for inserting HTML encodings of special characters into the post.
  *
- * Compatible with WordPress 2.8 through 4.7+.
+ * Compatible with WordPress 4.6 through 4.7+.
  *
  * =>> Read the accompanying readme.txt file for instructions and documentation.
  * =>> Also, visit the plugin's homepage for additional information and updates.
@@ -93,8 +93,6 @@ class c2c_HTMLSpecialCharactersHelper {
 
 		self::$title = __( 'HTML Special Characters', 'html-special-characters-helper' );
 
-		add_action( 'load-page.php',     array( __CLASS__, 'enqueue_scripts_and_styles' ) );
-		add_action( 'load-page-new.php', array( __CLASS__, 'enqueue_scripts_and_styles' ) );
 		add_action( 'load-post.php',     array( __CLASS__, 'enqueue_scripts_and_styles' ) );
 		add_action( 'load-post-new.php', array( __CLASS__, 'enqueue_scripts_and_styles' ) );
 
