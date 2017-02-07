@@ -96,9 +96,10 @@ class c2c_HTMLSpecialCharactersHelper {
 		add_action( 'load-post.php',     array( __CLASS__, 'enqueue_scripts_and_styles' ) );
 		add_action( 'load-post-new.php', array( __CLASS__, 'enqueue_scripts_and_styles' ) );
 
-		$post_types = (array) apply_filters( 'c2c_html_special_characters_helper_post_types', array( 'page', 'post' ) );
-		foreach ( $post_types as $post_type ) {
-			add_meta_box( 'htmlspecialchars', self::$title, array( __CLASS__, 'add_meta_box' ), $post_type, 'side' );
+		foreach ( self::get_post_types() as $post_type ) {
+			if ( post_type_supports( $post_type, 'editor' ) ) {
+				add_meta_box( 'htmlspecialchars', self::$title, array( __CLASS__, 'add_meta_box' ), $post_type, 'side' );
+			}
 		}
 	}
 
@@ -113,6 +114,23 @@ class c2c_HTMLSpecialCharactersHelper {
 		// Register and enqueue styles for admin page.
 		self::register_styles();
 		add_action( 'admin_enqueue_scripts', array( __CLASS__, 'enqueue_admin_css' ) );
+	}
+
+	/**
+	 * Returns post types that should have the helper available.
+	 *
+	 * @since 2.2
+	 *
+	 * @return array
+	 */
+	public static function get_post_types() {
+		// Get a list of all post type with a UI.
+		$post_types  = (array) get_post_types( array( 'show_ui' => true ) );
+
+		// Permit filtering of the post types handled by the plugin.
+		$post_types = (array) apply_filters( 'c2c_html_special_characters_helper_post_types', $post_types );
+
+		return $post_types;
 	}
 
 	/**

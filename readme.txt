@@ -120,6 +120,10 @@ add_filter( 'c2c_html_special_characters_post_types', 'more_html_special_charact
 == Changelog ==
 
 = () =
+* Change: Show helper metabox for all post types shown in the admin.
+    * Now shown for custom post types that appear in the admin menu
+    * Add function `get_post_types()`
+    * Ensure post type supports the editor before enabling metabox for it
 * Change: Add version number when registering stylesheet.
 * Change: No need to explicitly enqueue jQuery.
 * Change: Default `WP_TESTS_DIR` to `/tmp/wordpress-tests-lib` rather than erroring out if not defined via environment variable.
