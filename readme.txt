@@ -120,6 +120,7 @@ add_filter( 'c2c_html_special_characters_post_types', 'more_html_special_charact
 
 = () =
 * Change: Default `WP_TESTS_DIR` to `/tmp/wordpress-tests-lib` rather than erroring out if not defined via environment variable.
+* Change: Enable more error output for unit tests.
 
 = 2.1 (2016-01-19) =
 * New: Add assets/ sub-directory and move admin.js and admin.css into it.
