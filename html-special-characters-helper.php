@@ -447,7 +447,7 @@ HTML;
 	 * @since 1.8
 	 */
 	public static function register_styles() {
-		wp_register_style( __CLASS__ . '_admin', plugins_url( 'assets/admin.css', __FILE__ ) );
+		wp_register_style( __CLASS__ . '_admin', plugins_url( 'assets/admin.css', __FILE__ ), array(), self::version() );
 	}
 
 	/**

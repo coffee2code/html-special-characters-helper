@@ -119,6 +119,7 @@ add_filter( 'c2c_html_special_characters_post_types', 'more_html_special_charact
 == Changelog ==
 
 = () =
+* Change: Add version number when registering stylesheet.
 * Change: Default `WP_TESTS_DIR` to `/tmp/wordpress-tests-lib` rather than erroring out if not defined via environment variable.
 * Change: Enable more error output for unit tests.
 * Change: Note compatibility through WP 4.7+.
