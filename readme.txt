@@ -123,6 +123,7 @@ add_filter( 'c2c_html_special_characters_post_types', 'more_html_special_charact
 * Change: Enable more error output for unit tests.
 * Change: Note compatibility through WP 4.7+.
 * Change: Update copyright date (2017).
+* Change: Minor code reformatting (add trailing comma to last array elements).
 * New: Add LICENSE file.
 
 = 2.1 (2016-01-19) =

@@ -33,7 +33,7 @@ class HTML_Special_Characters_Helper_Test extends WP_UnitTestCase {
 			'&yen;'    => __( 'Japanese Yen', 'c2c_hsch' ),
 			'&euro;'   => __( 'Euro symbol', 'c2c_hsch' ),
 			'&fnof;'   => __( 'Dutch Florin symbol', 'c2c_hsch' ),
-			'&curren;' => __( 'generic currency symbol', 'c2c_hsch' )
+			'&curren;' => __( 'generic currency symbol', 'c2c_hsch' ),
 		);
 	}
 

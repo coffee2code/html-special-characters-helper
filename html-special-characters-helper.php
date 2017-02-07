@@ -172,7 +172,7 @@ class c2c_HTMLSpecialCharactersHelper {
 					'&larr;'   => __( 'left arrow',                      'html-special-characters-helper' ),
 					'&uarr;'   => __( 'up arrow',                        'html-special-characters-helper' ),
 					'&rarr;'   => __( 'right arrow',                     'html-special-characters-helper' ),
-					'&darr;'   => __( 'down arrow',                      'html-special-characters-helper' )
+					'&darr;'   => __( 'down arrow',                      'html-special-characters-helper' ),
 				),
 				'punctuation' => array(
 					'name'     => __( 'Punctuation',                     'html-special-characters-helper' ),
@@ -197,7 +197,7 @@ class c2c_HTMLSpecialCharactersHelper {
 					'&#8212;'  => __( 'em dash',                         'html-special-characters-helper' ),
 					'&#8230;'  => __( 'horizontal ellipsis',             'html-special-characters-helper' ),
 					'&iquest;' => __( 'inverted question mark',          'html-special-characters-helper' ),
-					'&iexcl;'  => __( 'inverted exclamation mark',       'html-special-characters-helper' )
+					'&iexcl;'  => __( 'inverted exclamation mark',       'html-special-characters-helper' ),
 				),
 				'currency' => array(
 					'name'     => __( 'Currency',                        'html-special-characters-helper' ),
@@ -206,7 +206,7 @@ class c2c_HTMLSpecialCharactersHelper {
 					'&yen;'    => __( 'Japanese Yen',                    'html-special-characters-helper' ),
 					'&euro;'   => __( 'Euro symbol',                     'html-special-characters-helper' ),
 					'&fnof;'   => __( 'Dutch Florin symbol',             'html-special-characters-helper' ),
-					'&curren;' => __( 'generic currency symbol',         'html-special-characters-helper' )
+					'&curren;' => __( 'generic currency symbol',         'html-special-characters-helper' ),
 				),
 				'math' => array(
 					'name'     => __( 'Math',                            'html-special-characters-helper' ),
@@ -254,7 +254,7 @@ class c2c_HTMLSpecialCharactersHelper {
 					'&frac12;' => __( 'fraction one half (1/2)',         'html-special-characters-helper' ),
 					'&frac34;' => __( 'fraction three quarters (3/4)',   'html-special-characters-helper' ),
 					'&ordf;'   => __( 'feminine ordinal indicator',      'html-special-characters-helper' ),
-					'&ordm;'   => __( 'masculine ordinal indicator',     'html-special-characters-helper' )
+					'&ordm;'   => __( 'masculine ordinal indicator',     'html-special-characters-helper' ),
 				),
 				'symbols' => array(
 					'name'     => __( 'Symbols',                         'html-special-characters-helper' ),
@@ -276,7 +276,7 @@ class c2c_HTMLSpecialCharactersHelper {
 					'&clubs;'  => __( 'clubs',                           'html-special-characters-helper' ),
 					'&hearts;' => __( 'hearts',                          'html-special-characters-helper' ),
 					'&diams;'  => __( 'diamonds',                        'html-special-characters-helper' ),
-					'&spades;' => __( 'spades',                          'html-special-characters-helper' )
+					'&spades;' => __( 'spades',                          'html-special-characters-helper' ),
 				),
 				'greek' => array(
 					'name'      => __( 'Greek',                          'html-special-characters-helper' ),
@@ -328,7 +328,7 @@ class c2c_HTMLSpecialCharactersHelper {
 					'&phi;'     => __( 'Greek small letter phi',         'html-special-characters-helper' ),
 					'&chi;'     => __( 'Greek small letter chi',         'html-special-characters-helper' ),
 					'&psi;'     => __( 'Greek small letter psi',         'html-special-characters-helper' ),
-					'&omega;'   => __( 'Greek small letter omega',       'html-special-characters-helper' )
+					'&omega;'   => __( 'Greek small letter omega',       'html-special-characters-helper' ),
 				)
 			);
 		}
