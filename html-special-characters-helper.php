@@ -465,7 +465,6 @@ HTML;
 	 * @since 1.8
 	 */
 	public static function enqueue_admin_js() {
-		wp_enqueue_script( 'jquery' );
 		wp_enqueue_script( __CLASS__ . '_admin', plugins_url( 'assets/admin.js', __FILE__ ), array( 'jquery' ), self::version(), true );
 	}
 
