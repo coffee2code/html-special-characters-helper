@@ -137,6 +137,8 @@ class c2c_HTMLSpecialCharactersHelper {
 		// Get a list of all post type with a UI.
 		$post_types  = (array) get_post_types( array( 'show_ui' => true ) );
 
+		unset( $post_types['attachment'] );
+
 		// Permit filtering of the post types handled by the plugin.
 		$post_types = (array) apply_filters( 'c2c_html_special_characters_helper_post_types', $post_types );
 
