@@ -140,7 +140,7 @@ class c2c_HTMLSpecialCharactersHelper {
 		unset( $post_types['attachment'] );
 
 		// Permit filtering of the post types handled by the plugin.
-		$post_types = (array) apply_filters( 'c2c_html_special_characters_helper_post_types', $post_types );
+		$post_types = array_values( (array) apply_filters( 'c2c_html_special_characters_helper_post_types', $post_types ) );
 
 		return $post_types;
 	}
