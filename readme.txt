@@ -35,7 +35,9 @@ You can't. The plugin only inserts the HTML character encodings into the post bo
 
 = I've activated the plugin and don't see the "HTML Special Characters" admin widget when I go to write a post; where is it? =
 
-It is in the sidebar, most likely at the sidebar's bottom.
+Refer to the screenshots to get an idea of what the helper widget looks like. You should find the widget in the right sidebar of the admin page when creating or editing a post, most likely at the bottom of the sidebar. It's possible it may have been dragged to someplace below the textarea where you provide the post's content.
+
+If you still can't find it, look to the upper-right of the page for a "Screen Options" link that reveals a panel of options. In the "Boxes" section, ensure the checkbox for "HTML Special Characters" is checked.
 
 = Have any references? =
 
@@ -44,6 +46,10 @@ Try:
 * http://www.w3schools.com/tags/ref_entities.asp
 * http://tlt.psu.edu/suggestions/international/web/codehtml.html
 * http://wdvl.internet.com/Authoring/HTML/Entities/
+
+= Does this plugin include unit tests? =
+
+Yes.
 
 
 == Screenshots ==
