@@ -1,7 +1,7 @@
 <?php
 /**
  * Plugin Name: HTML Special Characters Helper
- * Version:     2.1
+ * Version:     2.2
  * Plugin URI:  http://coffee2code.com/wp-plugins/html-special-characters-helper/
  * Author:      Scott Reilly
  * Author URI:  http://coffee2code.com/
@@ -18,13 +18,20 @@
  *
  * @package HTML_Special_Characters_Helper
  * @author  Scott Reilly
- * @version 2.1
+ * @version 2.2
  */
 
 /*
  * TODO:
  * - Front-end widget to facilitate use in comments
  * - Make it possible to attach HTML character insertion into any input field
+ * - Ability to undo insertion of HTML character. (May need to reimplement
+ *   send_to_editor()). See http://stackoverflow.com/questions/13597007
+ * - A way to copy to clipboard instead of inserting into post content textarea.
+ *   Would make it easy to grab the character for use in another input field.
+ *   Perhaps a checkbox in the metabox "Copy to clipboard instead of inserting
+ *   into post content". Checkbox state does not need to persist (but default
+ *   state could be made filterable).
  */
 
 /*
@@ -69,7 +76,7 @@ class c2c_HTMLSpecialCharactersHelper {
 	 * @since 1.9
 	 */
 	public static function version() {
-		return '2.1';
+		return '2.2';
 	}
 
 	/**

@@ -6,7 +6,7 @@ License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Requires at least: 4.6
 Tested up to: 4.7
-Stable tag: 2.1
+Stable tag: 2.2
 
 Admin widget on the Add/Edit Post pages for inserting HTML encodings of special characters into the post.
 
@@ -125,7 +125,7 @@ add_filter( 'c2c_html_special_characters_post_types', 'more_html_special_charact
 
 == Changelog ==
 
-= 2.2 (2017-02-06) =
+= 2.2 (2017-02-07) =
 * Change: Show helper metabox for all post types shown in the admin.
     * Now shown for custom post types that appear in the admin menu
     * Add function `get_post_types()`
@@ -281,6 +281,9 @@ add_filter( 'c2c_html_special_characters_post_types', 'more_html_special_charact
 
 
 == Upgrade Notice ==
+
+= 2.2 =
+Recommended update: show helper metabox for all public post types (including custom post types), tweaked readme, changed unit test bootstrap, noted compatibility through WP 4.7+, dropped compatibility with WP older than 4.6, and updated copyright date
 
 = 2.1 =
 Minor update: moved JS and CSS assets into subdirectory; minor tweaks and improvements; improved support for localization; minor unit test tweaks; verified compatibility through WP 4.4+; updated screenshots; and updated copyright date (2016)
