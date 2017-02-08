@@ -109,7 +109,7 @@ class c2c_HTMLSpecialCharactersHelper {
 	 */
 	public static function add_meta_boxes( $post_type, $post ) {
 		if ( post_type_supports( $post_type, 'editor' ) && in_array( $post_type, self::get_post_types() ) ) {
-			add_meta_box( 'htmlspecialchars', self::$title, array( __CLASS__, 'add_meta_box' ), $post_type, 'side' );
+			add_meta_box( 'htmlspecialchars', self::$title, array( __CLASS__, 'meta_box_content' ), $post_type, 'side' );
 		}
 	}
 
@@ -383,13 +383,13 @@ class c2c_HTMLSpecialCharactersHelper {
 	}
 
 	/**
-	 * Adds the meta box.
+	 * Adds the content for the meta box.
 	 *
 	 * Need this function instead of having the action directly call show_html_special_characters_content() because
 	 * the action sends over multiple arguments that we don't want. Since show_html_special_characters() also calls
 	 * show_html_special_characters_content() we can't just have it ignore arguments.
 	 */
-	public static function add_meta_box() {
+	public static function meta_box_content() {
 		self::show_html_special_characters_content();
 	}
 
