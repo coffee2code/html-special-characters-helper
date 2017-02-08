@@ -138,6 +138,7 @@ add_filter( 'c2c_html_special_characters_post_types', 'more_html_special_charact
 * Change: Enable more error output for unit tests.
 * Change: Note compatibility through WP 4.7+.
 * Change: Remove support for WordPress older than 4.6 (should still work for earlier versions).
+* Change: Actually remove /lang subdirectory.
 * Change: Minor readme.txt improvements.
 * Change: Update copyright date (2017).
 * Change: Minor code reformatting (add trailing comma to last array elements).
