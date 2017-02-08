@@ -96,10 +96,20 @@ class c2c_HTMLSpecialCharactersHelper {
 		add_action( 'load-post.php',     array( __CLASS__, 'enqueue_scripts_and_styles' ) );
 		add_action( 'load-post-new.php', array( __CLASS__, 'enqueue_scripts_and_styles' ) );
 
-		foreach ( self::get_post_types() as $post_type ) {
-			if ( post_type_supports( $post_type, 'editor' ) ) {
-				add_meta_box( 'htmlspecialchars', self::$title, array( __CLASS__, 'add_meta_box' ), $post_type, 'side' );
-			}
+		add_action( 'add_meta_boxes',    array( __CLASS__, 'add_meta_boxes' ), 10, 2 );
+	}
+
+	/**
+	 * Adds the metabox.
+	 *
+	 * @since 2.2
+	 *
+	 * @param string  $post_type Post type.
+	 * @param WP_Post $post      Post object.
+	 */
+	public static function add_meta_boxes( $post_type, $post ) {
+		if ( post_type_supports( $post_type, 'editor' ) && in_array( $post_type, self::get_post_types() ) ) {
+			add_meta_box( 'htmlspecialchars', self::$title, array( __CLASS__, 'add_meta_box' ), $post_type, 'side' );
 		}
 	}
 
