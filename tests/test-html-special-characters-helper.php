@@ -8,6 +8,7 @@ class HTML_Special_Characters_Helper_Test extends WP_UnitTestCase {
 		parent::tearDown();
 
 		remove_filter( 'c2c_html_special_characters', array( $this, 'more_html_special_characters' ) );
+		remove_filter( 'c2c_html_special_characters_helper_post_types', array( $this, 'filter_post_types' ) );
 	}
 
 
@@ -56,6 +57,13 @@ class HTML_Special_Characters_Helper_Test extends WP_UnitTestCase {
 		return $characters; // Important!
 	}
 
+	public function filter_post_types( $post_types ) {
+		$post_types[] = 'filtered_post_type';
+
+		unset( $post_types[ 'page' ] );
+
+		return $post_types;
+	}
 
 	//
 	//
@@ -126,10 +134,37 @@ class HTML_Special_Characters_Helper_Test extends WP_UnitTestCase {
 	}
 
 	/*
+	 * get_post_types()
+	 */
+
+	public function test_supports_default_public_post_types() {
+		$this->assertEquals( array( 'post', 'page' ), c2c_HTMLSpecialCharactersHelper::get_post_types() );
+	}
+
+	public function test_supports_public_custom_post_type() {
+		register_post_type( 'sample', array( 'show_ui' => true ) );
+
+		$this->assertEquals( array( 'post', 'page', 'sample' ), c2c_HTMLSpecialCharactersHelper::get_post_types() );
+
+		unregister_post_type( 'sample' );
+	}
+
+	public function test_does_not_support_nonpublic_custom_post_type() {
+		register_post_type( 'example', array( 'show_ui' => false ) );
+
+		$this->assertEquals( array( 'post', 'page' ), c2c_HTMLSpecialCharactersHelper::get_post_types() );
+
+		unregister_post_type( 'example' );
+	}
+
+	public function test_filter_c2c_html_special_characters_helper_post_types() {
+		add_filter( 'c2c_html_special_characters_helper_post_types', array( $this, 'filter_post_types' ) );
+
+		$this->assertEquals( array( 'post', 'filtered_post_type' ), c2c_HTMLSpecialCharactersHelper::get_post_types() );
+	}
+
+	/*
 	 * TEST TODO:
-	 * - Meta box is registered for default post types (page, post)
-	 * - Meta box is not registered for non-default post type
-	 * - Meta box is registered for non-default post type via 'c2c_html_special_characters_helper_post_types' filter
 	 * - JS is not enqueued on frontend
 	 * - JS is enqueue on appropriate admin page(s)
 	 * - JS is not enqueued on inappropriate admin page(s)
