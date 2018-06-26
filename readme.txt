@@ -126,6 +126,7 @@ add_filter( 'c2c_html_special_characters_post_types', 'more_html_special_charact
 == Changelog ==
 
 = () =
+* New: Add README.md
 * New: Add GitHub link to readme
 * Change: Remove dotted underline styling for characters in the widget
 * Change: Ensure result of 'c2c_html_special_characters' filter is an array
