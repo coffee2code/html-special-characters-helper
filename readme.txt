@@ -128,6 +128,7 @@ add_filter( 'c2c_html_special_characters_post_types', 'more_html_special_charact
 = () =
 * New: Add GitHub link to readme
 * Change: Remove dotted underline styling for characters in the widget
+* Change: Ensure result of 'c2c_html_special_characters' filter is an array
 * Change: Minor whitespace tweaks to unit test bootstrap
 * Change: Rename readme.txt section from 'Filters' to 'Hooks'
 * Change: Modify formatting of hook name in readme to prevent being uppercased when shown in the Plugin Directory

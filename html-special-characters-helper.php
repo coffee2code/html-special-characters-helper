@@ -380,7 +380,7 @@ class c2c_HTMLSpecialCharactersHelper {
 	 * @return array      Array of HTML special characters.
 	 */
 	public static function html_special_characters( $category = null ) {
-		$characters = apply_filters( 'c2c_html_special_characters', self::get_default_html_special_characters(), $category );
+		$characters = (array) apply_filters( 'c2c_html_special_characters', self::get_default_html_special_characters(), $category );
 
 		if ( $category ) {
 			$characters = isset( $characters[ $category ] ) ? $characters[ $category ] : array();
