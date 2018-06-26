@@ -5,7 +5,7 @@ Tags: post, admin widget, html special characters, write post, dbx, entity codes
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Requires at least: 4.6
-Tested up to: 4.7
+Tested up to: 4.9
 Stable tag: 2.2
 
 Admin widget on the Add/Edit Post pages for inserting HTML encodings of special characters into the post.
@@ -126,6 +126,7 @@ add_filter( 'c2c_html_special_characters_post_types', 'more_html_special_charact
 == Changelog ==
 
 = () =
+* Change: Note compatibility through WP 4.9+
 * Change: Update copyright date (2018)
 
 = 2.2 (2017-02-07) =
