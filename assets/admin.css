@@ -1,4 +1,4 @@
-.htmlspecialcharacter acronym {margin:0.1em 0.5em 0.1em 0; cursor:pointer;}
+.htmlspecialcharacter acronym {margin:0.1em 0.5em 0.1em 0; cursor:pointer; text-decoration:none;}
 #morehtmlspecialcharacters dt {font-weight:bold;}
 #morehtmlspecialcharacters dd {margin-left:6px;}
 #htmlhelperhelp {font-size:x-small; display:none;}
