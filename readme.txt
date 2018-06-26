@@ -17,7 +17,7 @@ Add an admin widget labeled "HTML Special Characters" that is present in the adm
 
 Note that when used in the visual editor mode the special character itself is added to the post body. Also note that the visual editor has its own special characters popup helper accessible via the advanced toolbar, which depending on your usage, may make this plugin unnecessary for you. In truth, the plugin is intended more for the non-visual (aka HTML) mode as that is the mode I (the plugin author) use.
 
-Links: [Plugin Homepage](http://coffee2code.com/wp-plugins/html-special-characters-helper/) | [Plugin Directory Page](https://wordpress.org/plugins/html-special-characters-helper/) | [Author Homepage](http://coffee2code.com)
+Links: [Plugin Homepage](http://coffee2code.com/wp-plugins/html-special-characters-helper/) | [Plugin Directory Page](https://wordpress.org/plugins/html-special-characters-helper/) | [GitHub](https://github.com/coffee2code/html-special-characters-helper/) | [Author Homepage](http://coffee2code.com)
 
 
 == Installation ==
@@ -126,6 +126,7 @@ add_filter( 'c2c_html_special_characters_post_types', 'more_html_special_charact
 == Changelog ==
 
 = () =
+* New: Add GitHub link to readme
 * Change: Note compatibility through WP 4.9+
 * Change: Update copyright date (2018)
 
