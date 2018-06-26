@@ -65,7 +65,7 @@ Yes.
 The plugin exposes two filters for hooking. Typically, code making use of filters should ideally be put into a mu-plugin or site-specific plugin (which is beyond the scope of this readme to explain).
 
 
-= c2c_html_special_characters (filter) =
+**c2c_html_special_characters (filter)**
 
 The 'c2c_html_special_characters' hook allows you to remove existing characters or entire groups of characters, and/or add new characters or groups of characters.
 
@@ -98,7 +98,7 @@ function more_html_special_characters( $characters ) {
 add_filter( 'c2c_html_special_characters', 'more_html_special_characters' );
 `
 
-= c2c_html_special_characters_post_type (filter) =
+**c2c_html_special_characters_post_type (filter)**
 
 The 'c2c_html_special_characters_post_type' hook allows you to specify which post_types for which the HTML Special Characters metabox should be shown.
 
@@ -128,6 +128,7 @@ add_filter( 'c2c_html_special_characters_post_types', 'more_html_special_charact
 = () =
 * New: Add GitHub link to readme
 * Change: Rename readme.txt section from 'Filters' to 'Hooks'
+* Change: Modify formatting of hook name in readme to prevent being uppercased when shown in the Plugin Directory
 * Change: Note compatibility through WP 4.9+
 * Change: Update copyright date (2018)
 
