@@ -125,6 +125,9 @@ add_filter( 'c2c_html_special_characters_post_types', 'more_html_special_charact
 
 == Changelog ==
 
+= () =
+* Change: Update copyright date (2018)
+
 = 2.2 (2017-02-07) =
 * Change: Show helper metabox for all post types shown in the admin.
     * Now shown for custom post types that appear in the admin menu
