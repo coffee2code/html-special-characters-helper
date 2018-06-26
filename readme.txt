@@ -60,7 +60,7 @@ Yes.
 4. A screenshot of the HTML Special Characters admin widget when the mouse is hovering over one of the special characters. The hover text that appears shows the HTML entity encoding for the character as well as the name of the character
 
 
-== Filters ==
+== Hooks ==
 
 The plugin exposes two filters for hooking. Typically, code making use of filters should ideally be put into a mu-plugin or site-specific plugin (which is beyond the scope of this readme to explain).
 
@@ -127,6 +127,7 @@ add_filter( 'c2c_html_special_characters_post_types', 'more_html_special_charact
 
 = () =
 * New: Add GitHub link to readme
+* Change: Rename readme.txt section from 'Filters' to 'Hooks'
 * Change: Note compatibility through WP 4.9+
 * Change: Update copyright date (2018)
 
