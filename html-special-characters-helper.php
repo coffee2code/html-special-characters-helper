@@ -8,7 +8,7 @@
  * Text Domain: html-special-characters-helper
  * License:     GPLv2 or later
  * License URI: http://www.gnu.org/licenses/gpl-2.0.html
- * Description: Admin widget on the Write Post page for inserting HTML encodings of special characters into the post.
+ * Description: Admin widget on the Add/Edit Post pages for inserting HTML encodings of special characters into the post.
  *
  * Compatible with WordPress 4.6 through 4.9+.
  *

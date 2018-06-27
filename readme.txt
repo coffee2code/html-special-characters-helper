@@ -13,9 +13,9 @@ Admin widget on the Add/Edit Post pages for inserting HTML encodings of special 
 
 == Description ==
 
-Add an admin widget labeled "HTML Special Characters" that is present in the admin Add/Edit Post and Add/Edit Page pages. Clicking on any special character in the widget causes its character encoding to be inserted into the post body text field at the current cursor location (or at the end of the post if the cursor isn't located in the post body field). Hovering over any of the special characters in the admin widget causes hover text to appear that shows the HTML entity encoding for the character as well as the name of the character.
+This plugin adds an admin widget labeled "HTML Special Characters" that is present in the admin Add/Edit Post and Add/Edit Page pages. Clicking on any special character in the widget causes its character encoding to be inserted into the post body text field at the current cursor location (or at the end of the post if the cursor isn't located in the post body field). Hovering over any of the special characters in the admin widget causes hover text to appear that shows the HTML entity encoding for the character as well as the name of the character.
 
-Note that when used in the visual editor mode the special character itself is added to the post body. Also note that the visual editor has its own special characters popup helper accessible via the advanced toolbar, which depending on your usage, may make this plugin unnecessary for you. In truth, the plugin is intended more for the non-visual (aka HTML) mode as that is the mode I (the plugin author) use.
+Note that when used in the visual editor mode the special character itself is added to the post body. Also note that the visual editor has its own special characters popup helper accessible via the advanced toolbar, which depending on your usage, may make this plugin unnecessary for you. In truth, the plugin is intended more for the non-visual (aka text) mode.
 
 The widget includes a checkbox labeled "Also copy to clipboard?" which, if checked, will also copy either the special character (if using the visual editor) or the HTML entity encoding for the character (if using the text editor) when you click the character to insert it into the post.
 
