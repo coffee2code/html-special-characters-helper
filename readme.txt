@@ -17,6 +17,8 @@ Add an admin widget labeled "HTML Special Characters" that is present in the adm
 
 Note that when used in the visual editor mode the special character itself is added to the post body. Also note that the visual editor has its own special characters popup helper accessible via the advanced toolbar, which depending on your usage, may make this plugin unnecessary for you. In truth, the plugin is intended more for the non-visual (aka HTML) mode as that is the mode I (the plugin author) use.
 
+The widget includes a checkbox labeled "Also copy to clipboard?" which, if checked, will also copy either the special character (if using the visual editor) or the HTML entity encoding for the character (if using the text editor) when you click the character to insert it into the post.
+
 Links: [Plugin Homepage](http://coffee2code.com/wp-plugins/html-special-characters-helper/) | [Plugin Directory Page](https://wordpress.org/plugins/html-special-characters-helper/) | [GitHub](https://github.com/coffee2code/html-special-characters-helper/) | [Author Homepage](http://coffee2code.com)
 
 
@@ -126,6 +128,7 @@ add_filter( 'c2c_html_special_characters_post_types', 'more_html_special_charact
 == Changelog ==
 
 = () =
+* New: Add ability to also copy special character (or encoded version of character, depending on editor context) to the clipboard when inserting character into post content
 * New: Add README.md
 * New: Add GitHub link to readme
 * Change: Remove dotted underline styling for characters in the widget

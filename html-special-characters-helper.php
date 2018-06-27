@@ -27,11 +27,6 @@
  * - Make it possible to attach HTML character insertion into any input field
  * - Ability to undo insertion of HTML character. (May need to reimplement
  *   send_to_editor()). See http://stackoverflow.com/questions/13597007
- * - A way to copy to clipboard instead of inserting into post content textarea.
- *   Would make it easy to grab the character for use in another input field.
- *   Perhaps a checkbox in the metabox "Copy to clipboard instead of inserting
- *   into post content". Checkbox state does not need to persist (but default
- *   state could be made filterable).
  */
 
 /*
@@ -423,7 +418,7 @@ class c2c_HTMLSpecialCharactersHelper {
 				}
 				$ecode = str_replace( '&', '&amp;', esc_attr( $code ) );
 				$description = esc_attr( $description );
-				$item = "<acronym onclick=\"send_to_editor('$ecode');\" title='$ecode $description'>$code</acronym> ";
+				$item = "<acronym onclick=\"c2c_hsch.do_insert('$ecode', '$code');\" title='$ecode $description'>$code</acronym> ";
 				if ( 'common' == $cat ) {
 					$innards .= $item;
 				} else {
@@ -446,10 +441,19 @@ class c2c_HTMLSpecialCharactersHelper {
 			. esc_attr( __( 'Click to toggle the display of more special characters', 'html-special-characters-helper' ) ) . '">'
 			. __( 'See <span id="htmlhelper_more">more</span><span id="htmlhelper_less">less</span>', 'html-special-characters-helper' )
 			. '</a>';
+
 		$innards .= $moreinnards;
 		$innards .= '<p id="htmlhelperhelp">'
 			. __( 'Click to insert character into post. Mouse-over character for more info. Some characters may not display in older browsers.', 'html-special-characters-helper' )
+			. ' '
+			. __ ( 'If checkbox is checked to enable copying to clipboard, the special character is copied if visual editor is being used or the HTML encoding is copied if text editor is being used.', 'html-special-characters-helper' )
 			. '</p></div>';
+
+		// Add checkbox that controls if character should also be copied to clipboard.
+		$innards .= ' ';
+		$innards .= '<label class="c2c_hsch_copy_to_clipboard"><input type="checkbox" name="c2c_hsch_copy_to_clipboard" value="1" />';
+		$innards .= __( 'Also copy to clipboard?', 'html-special-characters-helper' );
+		$innards .= '</label>';
 
 		if ( $echo ) {
 			echo $innards;
