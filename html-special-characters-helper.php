@@ -27,6 +27,14 @@
  * - Make it possible to attach HTML character insertion into any input field
  * - Ability to undo insertion of HTML character. (May need to reimplement
  *   send_to_editor()). See http://stackoverflow.com/questions/13597007
+ * - Add support for Gutenberg
+ * - Perhaps add a second checkbox that controls whether the character actually
+ *   gets inserted into post. (Only utility of this is to make the widget
+ *   useful as a general special character tool so a character can be added to
+ *   clipboard without inserting into post.
+ * - Hovering over a character should produce a mini tooltip that shows a larger
+ *   version of the character, its name, its HTML entity encoding, and links to
+ *   insert into post, copy to clipboard, both.
  */
 
 /*
