@@ -460,7 +460,7 @@ class c2c_HTMLSpecialCharactersHelper {
 		// Add checkbox that controls if character should also be copied to clipboard.
 		$checked = checked( true, (bool) apply_filters( 'c2c_html_special_characters_copy_to_clipboard_default', false ) );
 		$innards .= ' ';
-		$innards .= '<label class="c2c_hsch_copy_to_clipboard"><input type="checkbox" name="c2c_hsch_copy_to_clipboard" value="1" ' . $checked . '/>';
+		$innards .= '<label class="c2c_hsch_copy_to_clipboard"><input type="checkbox" name="c2c_hsch_copy_to_clipboard" value="1" ' . $checked . '/> ';
 		$innards .= __( 'Also copy to clipboard?', 'html-special-characters-helper' );
 		$innards .= '</label>';
 
