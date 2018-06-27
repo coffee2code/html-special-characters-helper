@@ -64,7 +64,7 @@ Yes.
 
 == Hooks ==
 
-The plugin exposes two filters for hooking. Typically, code making use of filters should ideally be put into a mu-plugin or site-specific plugin (which is beyond the scope of this readme to explain).
+The plugin exposes three filters for hooking. Typically, code making use of filters should ideally be put into a mu-plugin or site-specific plugin (which is beyond the scope of this readme to explain).
 
 
 **c2c_html_special_characters (filter)**
@@ -124,6 +124,22 @@ function more_html_special_characters_post_types( $post_types ) {
 }
 add_filter( 'c2c_html_special_characters_post_types', 'more_html_special_characters_post_types' );
 `
+
+**c2c_html_special_characters_copy_to_clipboard_default (filter)**
+
+The 'c2c_html_special_characters_copy_to_clipboard_default' hook allows you to set the default state of the "Also copy to clipboard?" checkbox.
+
+Arguments:
+
+* $do_copy (bool) : Should the special character be copied to clipboard by default? By default, this value is false.
+
+Example:
+
+`
+// Copy special character (or its HTML entity encoding, depending on editor context) to clipboard by default.
+add_filter( 'c2c_html_special_characters_copy_to_clipboard_default', '__return_true' );
+`
+
 
 == Changelog ==
 
