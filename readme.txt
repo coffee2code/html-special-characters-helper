@@ -8,7 +8,7 @@ Requires at least: 4.6
 Tested up to: 4.9
 Stable tag: 2.2
 
-Admin widget on the Add/Edit Post pages for inserting HTML encodings of special characters into the post.
+Admin widget on the Add/Edit Post pages for inserting HTML entity encodings of special characters into the post.
 
 
 == Description ==

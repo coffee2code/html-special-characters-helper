@@ -1,6 +1,6 @@
 # HTML Special Characters Helper
 
-A plugin for WordPress that adds an admin widget that facilitates inserting HTML encodings of special characters into posts.
+A plugin for WordPress that adds an admin widget that facilitates inserting HTML entity encodings of special characters into posts.
 
 This plugin is available in the WordPress Plugin Directory: https://wordpress.org/plugins/html-special-characters-helper/
 
