@@ -451,11 +451,16 @@ class c2c_HTMLSpecialCharactersHelper {
 			. '</a>';
 
 		$innards .= $moreinnards;
-		$innards .= '<p id="htmlhelperhelp">'
-			. __( 'Click to insert character into post. Mouse-over character for more info. Some characters may not display in older browsers.', 'html-special-characters-helper' )
-			. ' '
-			. __ ( 'If checkbox is checked to enable copying to clipboard, the special character is copied if visual editor is being used or the HTML encoding is copied if text editor is being used.', 'html-special-characters-helper' )
-			. '</p></div>';
+		$innards .= '<span id="htmlhelperhelp">'
+			. '<h3>' . __( 'Help', 'html-special-characters-helper' ) . '</h3>'
+			. '<ul>'
+			. '<li>' . __( 'Click to insert character into post.', 'html-special-characters-helper' ) . '</li>'
+			. '<li>' . __( 'Mouse-over character for more info about it.', 'html-special-characters-helper' ) . '</li>'
+			. '<li>' . __( 'Some characters may not display in older browsers.', 'html-special-characters-helper' ) . '</li>'
+			. '<li>' . __( 'If visual editor is in use, the special character itself is inserted into post. If text editor is in use, thne the HTML entity encoding is inserted.', 'html-special-characters-helper' ) . '</li>'
+			. '<li>' . __ ( 'If checkbox is checked to enable copying to clipboard, the special character is copied if visual editor is being used or the HTML encoding is copied if text editor is being used.', 'html-special-characters-helper' ) . '</li>'
+			. '</ul>'
+			. '</span></div>';
 
 		// Add checkbox that controls if character should also be copied to clipboard.
 		$checked = checked( true, (bool) apply_filters( 'c2c_html_special_characters_copy_to_clipboard_default', false ) );

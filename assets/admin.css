@@ -5,3 +5,6 @@
 #morehtmlspecialcharacters, #htmlhelper_less {display:none;}
 .htmlspecialcharacter_helplink {margin-right:0.5em;}
 .c2c_hsch_copy_to_clipboard {display:block; margin-top:1em;}
+#htmlhelperhelp h3 {margin-bottom:0;}
+#htmlhelperhelp ul {list-style:initial; margin-top:0; padding-left:1.5em;}
+#htmlhelperhelp li {margin-bottom:0;}
