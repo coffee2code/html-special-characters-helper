@@ -25,6 +25,11 @@ let c2c_hsch = {};
 	}
 
 	context.do_insert = function( encoded_text, text ) {
+		// Insert into editor if checkbox is checked.
+		if ( jQuery( 'input[name="c2c_hsch_send_to_editor"]' ).is( ':checked' ) ) {
+			send_to_editor( encoded_text );
+		}
+
 		// Copy to clipboard if checkbox is checked.
 		if ( jQuery( 'input[name="c2c_hsch_copy_to_clipboard"]' ).is( ':checked' ) ) {
 			let text_for_clipboard = '';
@@ -36,8 +41,7 @@ let c2c_hsch = {};
 			context.copy_text_to_clipboard( text_for_clipboard );
 		}
 
-		// Insert into editor.
-		return send_to_editor( encoded_text );
+		return;
 	}
 
 })( c2c_hsch );

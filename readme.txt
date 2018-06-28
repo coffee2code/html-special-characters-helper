@@ -33,7 +33,9 @@ Links: [Plugin Homepage](http://coffee2code.com/wp-plugins/html-special-characte
 
 = How do I use the "HTML Special Characters" admin widget to insert special characters into other post fields (such as the post title)? =
 
-You can't. The plugin only inserts the HTML character encodings into the post body. However, you can certainly hover over the character you want to use to see the HTML encoding for it (it'll start with an ampersand, `&`, and end with a semi-color, `;`) and type that into the field.
+You can't do so directly. The plugin only inserts the HTML character encodings into the post body. However, you can use the "Clicking character copies it to the clipboard?" checkbox to copy the character you want to use into the clipboard, which can then be pasted into any other text entry field (in or outside of your browser). Note that the special character (if using the visual editor) or the HTML entity encoding for the character (if using the text editor) will be copied to the clipboard when you click the character.
+
+You can also hover over the character you want to use to see the HTML encoding for it (it'll start with an ampersand, `&`, and end with a semi-color, `;`) and type that into the field.
 
 = I've activated the plugin and don't see the "HTML Special Characters" admin widget when I go to write a post; where is it? =
 
@@ -64,8 +66,7 @@ Yes.
 
 == Hooks ==
 
-The plugin exposes three filters for hooking. Typically, code making use of filters should ideally be put into a mu-plugin or site-specific plugin (which is beyond the scope of this readme to explain).
-
+The plugin exposes four filters for hooking. Typically, code making use of filters should ideally be put into a mu-plugin or site-specific plugin (which is beyond the scope of this readme to explain).
 
 **c2c_html_special_characters (filter)**
 
@@ -125,13 +126,28 @@ function more_html_special_characters_post_types( $post_types ) {
 add_filter( 'c2c_html_special_characters_post_types', 'more_html_special_characters_post_types' );
 `
 
-**c2c_html_special_characters_copy_to_clipboard_default (filter)**
+**c2c_html_special_characters_send_to_editor_default (filter)**
 
-The 'c2c_html_special_characters_copy_to_clipboard_default' hook allows you to set the default state of the "Also copy to clipboard?" checkbox.
+The 'c2c_html_special_characters_send_to_editor_default' hook allows you to set the default state of the "Clicking character inserts it into the editor?" checkbox.
 
 Arguments:
 
-* $do_copy (bool) : Should the special character be copied to clipboard by default? By default, this value is false.
+* $do_insert (bool) : Should the special character be inserted into the editor by default? By default this value is true.
+
+Example:
+
+`
+// Don't insert special character (or its HTML entity encoding, depending on editor context) editor by default.
+add_filter( 'c2c_html_special_characters_send_to_editor_default', '__return_false' );
+`
+
+**c2c_html_special_characters_copy_to_clipboard_default (filter)**
+
+The 'c2c_html_special_characters_copy_to_clipboard_default' hook allows you to set the default state of the "Clicking character copies it to the clipboard?" checkbox.
+
+Arguments:
+
+* $do_copy (bool) : Should the special character be copied to clipboard by default? By default this value is false.
 
 Example:
 
@@ -145,6 +161,7 @@ add_filter( 'c2c_html_special_characters_copy_to_clipboard_default', '__return_t
 
 = () =
 * New: Add ability to also copy special character (or encoded version of character, depending on editor context) to the clipboard when inserting character into post content
+* New: Add ability to choose whether clicking a special character inserts it into the editor
 * New: Add README.md
 * New: Add GitHub link to readme
 * Change: Remove dotted underline styling for characters in the widget

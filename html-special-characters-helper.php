@@ -35,6 +35,8 @@
  * - Hovering over a character should produce a mini tooltip that shows a larger
  *   version of the character, its name, its HTML entity encoding, and links to
  *   insert into post, copy to clipboard, both.
+ * - Add a way to copy HTML entity encoding to clipboard from visual editor, and
+ *   to copy special character itself to clipboard from text editor.
  */
 
 /*
@@ -454,7 +456,7 @@ class c2c_HTMLSpecialCharactersHelper {
 		$innards .= '<span id="htmlhelperhelp">'
 			. '<h3>' . __( 'Help', 'html-special-characters-helper' ) . '</h3>'
 			. '<ul>'
-			. '<li>' . __( 'Click to insert character into post.', 'html-special-characters-helper' ) . '</li>'
+			. '<li>' . __( 'Click character to into it post and/or copy it to clipboard (based on checkboxes below).', 'html-special-characters-helper' ) . '</li>'
 			. '<li>' . __( 'Mouse-over character for more info about it.', 'html-special-characters-helper' ) . '</li>'
 			. '<li>' . __( 'Some characters may not display in older browsers.', 'html-special-characters-helper' ) . '</li>'
 			. '<li>' . __( 'If visual editor is in use, the special character itself is inserted into post. If text editor is in use, thne the HTML entity encoding is inserted.', 'html-special-characters-helper' ) . '</li>'
@@ -462,12 +464,23 @@ class c2c_HTMLSpecialCharactersHelper {
 			. '</ul>'
 			. '</span></div>';
 
+		$innards .= '<div class="c2c_hsch_controls">';
+
+		// Add checkbox that controls if character should also inserted into editor
+		$checked = checked( true, (bool) apply_filters( 'c2c_html_special_characters_send_to_editor_default', true ), false );
+		$innards .= ' ';
+		$innards .= '<label class="c2c_hsch_send_to_editor"><input type="checkbox" name="c2c_hsch_send_to_editor" value="1" ' . $checked . '/> ';
+		$innards .= __( 'Clicking character inserts it into the editor?', 'html-special-characters-helper' );
+		$innards .= '</label>';
+
 		// Add checkbox that controls if character should also be copied to clipboard.
-		$checked = checked( true, (bool) apply_filters( 'c2c_html_special_characters_copy_to_clipboard_default', false ) );
+		$checked = checked( true, (bool) apply_filters( 'c2c_html_special_characters_copy_to_clipboard_default', false ), false );
 		$innards .= ' ';
 		$innards .= '<label class="c2c_hsch_copy_to_clipboard"><input type="checkbox" name="c2c_hsch_copy_to_clipboard" value="1" ' . $checked . '/> ';
-		$innards .= __( 'Also copy to clipboard?', 'html-special-characters-helper' );
+		$innards .= __( 'Clicking character copies it to the clipboard?', 'html-special-characters-helper' );
 		$innards .= '</label>';
+
+		$innards .= '</div>';
 
 		if ( $echo ) {
 			echo $innards;
