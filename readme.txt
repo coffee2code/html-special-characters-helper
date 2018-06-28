@@ -61,7 +61,7 @@ Yes.
 1. A screenshot of the HTML Special Characters admin widget in its default state
 2. A screenshot of the HTML Special Characters admin widget when "See More" is clicked to display more special characters. Note all characters are categorized into labeled sections
 3. A screenshot of the HTML Special Characters admin widget after "Help?" is clicked
-4. A screenshot of the HTML Special Characters admin widget when the mouse is hovering over one of the special characters. The hover text that appears shows the HTML entity encoding for the character as well as the name of the character
+4. A screenshot of the HTML Special Characters admin widget when the mouse is hovering over one of the special characters. (The screen capture omits the mouse pointer.) The hover text that appears shows the HTML entity encoding for the character as well as the name of the character
 
 
 == Hooks ==
@@ -159,7 +159,7 @@ add_filter( 'c2c_html_special_characters_copy_to_clipboard_default', '__return_t
 
 == Changelog ==
 
-= () =
+= 2.3 (2018-06-27) =
 * New: Add ability to also copy special character (or encoded version of character, depending on editor context) to the clipboard when inserting character into post content
 * New: Add ability to choose whether clicking a special character inserts it into the editor
 * New: Add README.md
@@ -172,6 +172,7 @@ add_filter( 'c2c_html_special_characters_copy_to_clipboard_default', '__return_t
 * Change: Modify formatting of hook name in readme to prevent being uppercased when shown in the Plugin Directory
 * Change: Note compatibility through WP 4.9+
 * Change: Update copyright date (2018)
+* Change: Update screenshots and banner image
 
 = 2.2 (2017-02-07) =
 * Change: Show helper metabox for all post types shown in the admin.
@@ -329,6 +330,9 @@ add_filter( 'c2c_html_special_characters_copy_to_clipboard_default', '__return_t
 
 
 == Upgrade Notice ==
+
+= 2.3 =
+Feature update: added ability to copy special character (or its encoding) to clipboard, removed dotted underline styling of characters, added README.md, noted compatibility through WP 4.9+, updated copyright date (2018), and more.
 
 = 2.2 =
 Recommended update: show helper metabox for all public post types (including custom post types), tweaked readme, changed unit test bootstrap, noted compatibility through WP 4.7+, dropped compatibility with WP older than 4.6, and updated copyright date

@@ -1,7 +1,7 @@
 <?php
 /**
  * Plugin Name: HTML Special Characters Helper
- * Version:     2.2
+ * Version:     2.3
  * Plugin URI:  http://coffee2code.com/wp-plugins/html-special-characters-helper/
  * Author:      Scott Reilly
  * Author URI:  http://coffee2code.com/
@@ -18,7 +18,7 @@
  *
  * @package HTML_Special_Characters_Helper
  * @author  Scott Reilly
- * @version 2.2
+ * @version 2.3
  */
 
 /*
@@ -81,7 +81,7 @@ class c2c_HTMLSpecialCharactersHelper {
 	 * @since 1.9
 	 */
 	public static function version() {
-		return '2.2';
+		return '2.3';
 	}
 
 	/**

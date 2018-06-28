@@ -77,7 +77,7 @@ class HTML_Special_Characters_Helper_Test extends WP_UnitTestCase {
 	}
 
 	public function test_version() {
-		$this->assertEquals( '2.2', c2c_HTMLSpecialCharactersHelper::version() );
+		$this->assertEquals( '2.3', c2c_HTMLSpecialCharactersHelper::version() );
 	}
 
 	public function test_get_default_html_special_characters_returns_all_categories_by_default() {
