@@ -465,19 +465,20 @@ class c2c_HTMLSpecialCharactersHelper {
 			. '</span></div>';
 
 		$innards .= '<div class="c2c_hsch_controls">';
+		$innards .= __( 'Clicking character&hellip;', 'html-special-characters-helper' );
 
 		// Add checkbox that controls if character should also inserted into editor
 		$checked = checked( true, (bool) apply_filters( 'c2c_html_special_characters_send_to_editor_default', true ), false );
 		$innards .= ' ';
 		$innards .= '<label class="c2c_hsch_send_to_editor"><input type="checkbox" name="c2c_hsch_send_to_editor" value="1" ' . $checked . '/> ';
-		$innards .= __( 'Clicking character inserts it into the editor?', 'html-special-characters-helper' );
+		$innards .= __( '&hellip;inserts it into the editor?', 'html-special-characters-helper' );
 		$innards .= '</label>';
 
 		// Add checkbox that controls if character should also be copied to clipboard.
 		$checked = checked( true, (bool) apply_filters( 'c2c_html_special_characters_copy_to_clipboard_default', false ), false );
 		$innards .= ' ';
 		$innards .= '<label class="c2c_hsch_copy_to_clipboard"><input type="checkbox" name="c2c_hsch_copy_to_clipboard" value="1" ' . $checked . '/> ';
-		$innards .= __( 'Clicking character copies it to the clipboard?', 'html-special-characters-helper' );
+		$innards .= __( '&hellip;copies it to the clipboard?', 'html-special-characters-helper' );
 		$innards .= '</label>';
 
 		$innards .= '</div>';
